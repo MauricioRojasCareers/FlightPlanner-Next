@@ -67,7 +67,7 @@ export const CesiumComponent: React.FunctionComponent<{
       // Reset camera view
       resetCamera();
     }
-  }, [positions, cleanUpPrimitives, resetCamera, CesiumJs]);
+  }, [positions, cleanUpPrimitives, resetCamera]);
 
   React.useEffect(() => {
     const initializeViewer = async () => {
@@ -78,7 +78,7 @@ export const CesiumComponent: React.FunctionComponent<{
         try {
           // Wait for the terrain provider to load asynchronously
           const terrainProvider = await CesiumJs.CesiumTerrainProvider.fromUrl(
-            `https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`,
+            `https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/?key=2H9Q1yptTlh4r8nDW0Az`,
             {
               requestVertexNormals: true, // Enables smooth shading
               requestWaterMask: true, // Enables water effects
@@ -123,12 +123,15 @@ export const CesiumComponent: React.FunctionComponent<{
     };
 
     initializeViewer();
-  }, [CesiumJs.Viewer, CesiumJs.Ion, CesiumJs.CesiumTerrainProvider]);
+  }, []);
 
-  initializeCesiumJs();
+  React.useEffect(() => {
+    if (isLoaded) return;
+    initializeCesiumJs();
+  }, [positions, isLoaded, initializeCesiumJs]);
 
-  // const entities: Entity[] = [];
-  // const julianDate = dateToJulianDate(CesiumJs, new Date());
+  const entities: Entity[] = [];
+  const julianDate = dateToJulianDate(CesiumJs, new Date());
 
   return (
     <div
