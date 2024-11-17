@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import type { CesiumType } from "../types/cesium";
 import { Cesium3DTileset, type Entity, type Viewer } from "cesium";
@@ -10,7 +8,8 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 export const CesiumComponent: React.FunctionComponent<{
   CesiumJs: CesiumType;
   positions: Position[];
-}> = ({ CesiumJs, positions }) => {
+  terrainProvider: { url: string; options: object };
+}> = ({ CesiumJs, positions, terrainProvider }) => {
   const cesiumViewer = React.useRef<Viewer | null>(null);
   const cesiumContainerRef = React.useRef<HTMLDivElement>(null);
   const customCreditContainerRef = React.useRef<HTMLDivElement>(
@@ -37,98 +36,82 @@ export const CesiumComponent: React.FunctionComponent<{
     addedScenePrimitives.current = [];
   }, []);
 
-  const initializeCesiumJs = React.useCallback(async () => {
-    if (cesiumViewer.current !== null) {
-      // Create osmBuildingsTileset (example), add to viewer.
-      const osmBuildingsTileset = await CesiumJs.createOsmBuildingsAsync();
-      cleanUpPrimitives();
-      const osmBuildingsTilesetPrimitive =
-        cesiumViewer.current.scene.primitives.add(osmBuildingsTileset);
-      addedScenePrimitives.current.push(osmBuildingsTilesetPrimitive);
-
-      // Add user-provided positions (as an example, you might want to customize this logic)
-      positions.forEach((p) => {
-        cesiumViewer.current?.entities.add({
-          position: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat),
-          ellipse: {
-            semiMinorAxis: 50000.0,
-            semiMajorAxis: 50000.0,
-            height: 0,
-            material: CesiumJs.Color.RED.withAlpha(0.5),
-            outline: true,
-            outlineColor: CesiumJs.Color.YELLOW,
-          },
-        });
-      });
-
-      // Mark that the viewer is loaded
-      setIsLoaded(true);
-
-      // Reset camera view
-      resetCamera();
-    }
-  }, [positions, cleanUpPrimitives, resetCamera, CesiumJs]);
-
   React.useEffect(() => {
     const initializeViewer = async () => {
-      if (cesiumViewer.current === null && cesiumContainerRef.current) {
-        // Set your Cesium Ion access token
-        CesiumJs.Ion.defaultAccessToken = `${process.env.NEXT_PUBLIC_CESIUM_TOKEN}`;
+      // Prevent creating the viewer more than once
+      if (cesiumViewer.current !== null || !cesiumContainerRef.current) return;
 
-        try {
-          // Wait for the terrain provider to load asynchronously
-          const terrainProvider = await CesiumJs.CesiumTerrainProvider.fromUrl(
-            `https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/?key=${process.env.NEXT_PUBLIC_MAPTILER_KEY}`,
-            {
-              requestVertexNormals: true, // Enables smooth shading
-              requestWaterMask: true, // Enables water effects
-            }
+      // Set your Cesium Ion access token
+      CesiumJs.Ion.defaultAccessToken = `${process.env.NEXT_PUBLIC_CESIUM_TOKEN}`;
+
+      try {
+        const terrainProviderInstance =
+          await CesiumJs.CesiumTerrainProvider.fromUrl(
+            terrainProvider.url,
+            terrainProvider.options
           );
 
-          // Initialize the Cesium viewer with the terrain provider and other options
-          cesiumViewer.current = new CesiumJs.Viewer(
-            cesiumContainerRef.current,
-            {
-              terrainProvider,
-              creditContainer: customCreditContainerRef.current,
-              fullscreenButton: false,
-              timeline: false,
-              baseLayerPicker: false,
-              geocoder: false,
-              homeButton: false,
-              sceneModePicker: false,
-              navigationHelpButton: false,
-              clockViewModel: undefined,
-              navigationInstructionsInitiallyVisible: false,
-              animation: false,
-              infoBox: false,
-              selectionIndicator: false,
-              shouldAnimate: false,
-            }
-          );
-        } catch (error) {
-          console.error("Error loading terrain provider:", error);
-        }
-      }
+        // Initialize the Cesium viewer with the terrain provider and other options
+        cesiumViewer.current = new CesiumJs.Viewer(cesiumContainerRef.current, {
+          terrainProvider: terrainProviderInstance,
+          creditContainer: customCreditContainerRef.current,
+          fullscreenButton: false,
+          timeline: false,
+          baseLayerPicker: false,
+          geocoder: false,
+          homeButton: false,
+          sceneModePicker: false,
+          navigationHelpButton: false,
+          clockViewModel: undefined,
+          navigationInstructionsInitiallyVisible: false,
+          animation: false,
+          infoBox: false,
+          selectionIndicator: false,
+          shouldAnimate: false,
+        });
 
-      // Manually hide the Cesium clock widget if it’s still visible
-      if (cesiumViewer.current && cesiumViewer.current.container) {
-        const clockWidget = cesiumViewer.current.container.querySelector(
-          ".cesium-clock"
-        ) as HTMLElement;
-        if (clockWidget) {
-          clockWidget.style.display = "none";
-        }
+        // Create osmBuildingsTileset (example), add to viewer.
+        const osmBuildingsTileset = await CesiumJs.createOsmBuildingsAsync();
+        cleanUpPrimitives();
+        const osmBuildingsTilesetPrimitive =
+          cesiumViewer.current.scene.primitives.add(osmBuildingsTileset);
+        addedScenePrimitives.current.push(osmBuildingsTilesetPrimitive);
+
+        // Add user-provided positions (as an example, you might want to customize this logic)
+        positions.forEach((p) => {
+          cesiumViewer.current?.entities.add({
+            position: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat),
+            ellipse: {
+              semiMinorAxis: 50000.0,
+              semiMajorAxis: 50000.0,
+              height: 0,
+              material: CesiumJs.Color.RED.withAlpha(0.5),
+              outline: true,
+              outlineColor: CesiumJs.Color.YELLOW,
+            },
+          });
+        });
+
+        // Mark that the viewer is loaded
+        setIsLoaded(true);
+
+        // Reset camera view
+        resetCamera();
+      } catch (error) {
+        console.error("Error loading terrain provider:", error);
       }
     };
 
     initializeViewer();
-  }, [CesiumJs.Viewer, CesiumJs.Ion, CesiumJs.CesiumTerrainProvider]);
 
-  initializeCesiumJs();
-
-  // const entities: Entity[] = [];
-  // const julianDate = dateToJulianDate(CesiumJs, new Date());
+    // Cleanup the viewer when the component unmounts
+    return () => {
+      if (cesiumViewer.current) {
+        cesiumViewer.current.destroy();
+        cesiumViewer.current = null;
+      }
+    };
+  }, [CesiumJs, terrainProvider, positions, cleanUpPrimitives, resetCamera]);
 
   return (
     <div

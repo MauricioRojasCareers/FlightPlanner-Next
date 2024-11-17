@@ -12,7 +12,8 @@ const CesiumDynamicComponent = dynamic(() => import("./CesiumComponent"), {
 
 export const CesiumWrapper: React.FunctionComponent<{
   positions: Position[];
-}> = ({ positions }) => {
+  terrainProvider: { url: string; options: object };
+}> = ({ positions, terrainProvider }) => {
   const [CesiumJs, setCesiumJs] = React.useState<CesiumType | null>(null);
 
   React.useEffect(() => {
@@ -25,7 +26,11 @@ export const CesiumWrapper: React.FunctionComponent<{
   }, [CesiumJs]);
 
   return CesiumJs ? (
-    <CesiumDynamicComponent CesiumJs={CesiumJs} positions={positions} />
+    <CesiumDynamicComponent
+      CesiumJs={CesiumJs}
+      positions={positions}
+      terrainProvider={terrainProvider}
+    />
   ) : (
     <LoadingSpinner />
   );
