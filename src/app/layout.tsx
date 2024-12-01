@@ -7,14 +7,13 @@ export const metadata: Metadata = {
     "An example Next.js 14 TypeScript project displaying Cesium hosted in Vercel",
   openGraph: {
     type: "website",
-    siteName: "Cesium in Next.js 14 with TypeScript",
-    title: "Cesium in Next.js 14 with TypeScript",
-    url: `https://nextjs-cesium.vercel.app`,
-    description:
-      "An example Next.js 14 TypeScript project displaying Cesium hosted in Vercel",
+    siteName: "FlightPlanner Next Generation",
+    title: "FlightPlanner Next Generation",
+    url: `https://flight-planner-next.vercel.app/`,
+    description: "Using Cesium, Next.js, TypeScript, and TailwindCSS",
     images: [
       {
-        url: `https://nextjs-cesium.vercel.app/og.png`,
+        url: `https://flight-planner-next.vercel.app/og.png`,
       },
     ],
   },
