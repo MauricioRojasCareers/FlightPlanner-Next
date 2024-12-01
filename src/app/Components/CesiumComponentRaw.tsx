@@ -58,6 +58,14 @@ export const CesiumComponentRaw: FunctionComponent<{
       cesiumViewer.current = new CesiumJs.Viewer(cesiumContainerRef.current, {
         terrain: CesiumJs.Terrain.fromWorldTerrain(),
         creditContainer: customCreditContainerRef.current,
+        fullscreenButton: false,
+        timeline: false,
+        baseLayerPicker: false,
+        geocoder: false,
+        homeButton: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+        animation: false,
       });
 
       // Check when terrain has loaded
@@ -100,7 +108,8 @@ export const CesiumComponentRaw: FunctionComponent<{
                   }
 
                   // URL for the external image to be used as the billboard
-                  const imageUrl = "/static/assets/homepng.png";
+                  // const imageUrl = "/static/assets/homepng.png";
+                  const imageUrl = "/assets/homepng.png";
 
                   // Add a billboard and label
                   cesiumViewer.current?.entities.add({
@@ -146,7 +155,7 @@ export const CesiumComponentRaw: FunctionComponent<{
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === "r" || event.key === "R") {
           // Adjust camera height for a less zoomed-in top-down view
-          const topDownHeight = 1250; // Adjust this value to control zoom level
+          const topDownHeight = 1100; // Adjust this value to control zoom level
 
           // Set camera to top-down view (orthogonal view)
           const topDownPosition = CesiumJs.Cartesian3.fromDegrees(
