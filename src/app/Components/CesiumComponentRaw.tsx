@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
-import { Viewer, Color, sampleTerrainMostDetailed } from "cesium";
+import { Viewer, Math, sampleTerrainMostDetailed } from "cesium";
 
 import "cesium/Build/Cesium/Widgets/widgets.css";
 
@@ -187,12 +187,41 @@ export const CesiumComponentRaw: FunctionComponent<{
     }
   }, [userPosition]);
 
+  const topDownView = () => {
+    if (userPosition && cesiumViewer.current) {
+      const topDownHeight = 800;
+      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
+        userPosition.longitude,
+        userPosition.latitude,
+        topDownHeight // Use default height if not available
+      );
+
+      cesiumViewer.current.camera.flyTo({
+        destination: userPositionCartesian,
+        orientation: {
+          heading: CesiumJs.Math.toRadians(0.0),
+          pitch: CesiumJs.Math.toRadians(-90),
+          roll: 0.0,
+        },
+        duration: 1, // Smooth transition
+      });
+    }
+  };
   return (
-    <div
-      ref={cesiumContainerRef}
-      id="cesiumContainer"
-      className="absolute inset-0"
-    />
+    <>
+      <div
+        ref={cesiumContainerRef}
+        id="cesiumContainer"
+        className="absolute inset-0"
+      />
+
+      <button
+        onClick={topDownView}
+        className="absolute top-4 right-4 md:right-4 md:top-4 md:left-auto md:bottom-auto text-rose-600 py-2 px-4 bg-white rounded-2xl text-xs shadow-lg hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500 w-auto mx-auto md:mx-0"
+      >
+        Home Button!
+      </button>
+    </>
   );
 };
 
