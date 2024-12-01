@@ -4,20 +4,10 @@ import MainPage from "./main/page";
 export default function Home() {
   return (
     <main>
-      {/* <a
-        className={styles["source-link"]}
-        href="https://github.com/hyundotio/nextjs-ts-cesium-example"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        GitHub Source link
-      </a> */}
-
-      <>
-        <div className={styles["source-link"]}> Phoenix Lidar Systems </div>
-
-        <MainPage />
-      </>
+      <MainPage />
+      <div className="z-10 p-4 absolute top-0 font-extralight text-white text-xs md:text-xl  w-full h- flex items-center justify-center">
+        Phoenix Lidar Systems
+      </div>
     </main>
   );
 }

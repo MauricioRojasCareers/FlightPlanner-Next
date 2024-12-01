@@ -5,7 +5,7 @@ const pathBuilder = (subpath) => path.join(process.cwd(), subpath);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  //   reactStrictMode: false,
+  // reactStrictMode: false,
 
   webpack: (config, { webpack }) => {
     config.plugins.push(
