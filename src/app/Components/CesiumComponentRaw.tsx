@@ -100,7 +100,7 @@ export const CesiumComponentRaw: FunctionComponent<{
                   }
 
                   // URL for the external image to be used as the billboard
-                  const imageUrl = "/assets/homepng.png";
+                  const imageUrl = "/static/assets/homepng.png";
 
                   // Add a billboard and label
                   cesiumViewer.current?.entities.add({
@@ -177,10 +177,6 @@ export const CesiumComponentRaw: FunctionComponent<{
       };
     }
   }, [userPosition]);
-
-  // if (!cesiumViewer.current) {
-  //   return <div>Give us a second while we load everything in...</div>;
-  // }
 
   return (
     <div
