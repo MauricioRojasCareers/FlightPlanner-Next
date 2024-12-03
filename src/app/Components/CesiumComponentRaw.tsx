@@ -3,6 +3,8 @@ import type { CesiumType } from "../types/cesium";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
 import "cesium/Build/Cesium/Widgets/widgets.css";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -19,6 +21,8 @@ export const CesiumComponentRaw: FunctionComponent<{
     longitude: number;
     height?: number;
   } | null>(null);
+
+  const { toast } = useToast();
 
   useEffect(() => {
     // Get user's current location using Geolocation API
@@ -40,6 +44,18 @@ export const CesiumComponentRaw: FunctionComponent<{
             "Unable to access your location. Check location services in browser settings."
           );
           console.error("Error getting user location:", error);
+          setUserPosition({
+            latitude: 30.435975,
+            longitude: -97.685133,
+            height: 0,
+          });
+          toast({
+            title: "Unable to access your location.",
+            description:
+              " Check location services in browser settings. Using Phoenix HQ Position.",
+            variant: "destructive", // Red background for error
+            duration: 3000,
+          });
         }
       );
     } else {
@@ -112,18 +128,16 @@ export const CesiumComponentRaw: FunctionComponent<{
                     context.fillRect(0, 0, canvas.width, canvas.height);
                   }
 
-                  // URL for the external image to be used as the billboard
-                  // const imageUrl = "/static/assets/homepng.png";
-                  const imageUrl = "/assets/homepng.png";
-
                   // Add a billboard and label
                   cesiumViewer.current?.entities.add({
                     position: adjustedPosition,
                     billboard: new CesiumJs.BillboardGraphics({
-                      image: imageUrl, // Convert canvas to data URL for the billboard
+                      image: locationError
+                        ? "/assets/phoenix-logo.svg"
+                        : "/assets/homepng.png", // Convert canvas to data URL for the billboard
                       verticalOrigin: CesiumJs.VerticalOrigin.BOTTOM, // Ensures the image stays at the bottom
                       heightReference: CesiumJs.HeightReference.CLAMP_TO_GROUND, // Keeps the billboard above the terrain
-                      scale: 0.3, // Set a fixed scale factor to keep it small
+                      scale: locationError ? 1 : 0.3, // Set a fixed scale factor to keep it small
                       scaleByDistance: new CesiumJs.NearFarScalar(
                         100.0, // Near distance (beyond which scale starts reducing)
                         1.0, // Scale factor at near distance
@@ -214,14 +228,6 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
   return (
     <>
-      {locationError && (
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-100 text-red-600 p-4 rounded-md shadow-md text-center"
-          role="alert"
-        >
-          {locationError}
-        </div>
-      )}
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
