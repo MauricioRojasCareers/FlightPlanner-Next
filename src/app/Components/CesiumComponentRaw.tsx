@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
-import { Viewer, Math, sampleTerrainMostDetailed } from "cesium";
+import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
 import "cesium/Build/Cesium/Widgets/widgets.css";
 
@@ -12,6 +12,7 @@ export const CesiumComponentRaw: FunctionComponent<{
   const customCreditContainerRef = useRef<HTMLDivElement>(
     document.createElement("div")
   );
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   const [userPosition, setUserPosition] = useState<{
     latitude: number;
@@ -35,10 +36,14 @@ export const CesiumComponentRaw: FunctionComponent<{
           console.log(position);
         },
         (error) => {
+          setLocationError(
+            "Unable to access your location. Check location services in browser settings."
+          );
           console.error("Error getting user location:", error);
         }
       );
     } else {
+      console.error("Geolocation is not supported by this browser.");
       console.error("Geolocation is not supported by this browser.");
     }
   }, []);
@@ -209,6 +214,14 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
   return (
     <>
+      {locationError && (
+        <div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-100 text-red-600 p-4 rounded-md shadow-md text-center"
+          role="alert"
+        >
+          {locationError}
+        </div>
+      )}
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
