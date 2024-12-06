@@ -1,4 +1,4 @@
-import CesiumWrapper from "./Components/CesiumWrapper";
+import CesiumWrapper from "./components/CesiumWrapper";
 
 export default function Home() {
   return (
