@@ -12,7 +12,7 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
 }) => {
   return (
-    <div className="absolute p-4 right-0">
+    <div className="absolute right-0 p-4">
       {/* Motion Button for animation */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}

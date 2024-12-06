@@ -4,9 +4,10 @@ import dynamic from "next/dynamic";
 import React from "react";
 import type { CesiumType } from "../types/cesium";
 import Loading from "@/app/components/Loading";
+import { Toaster } from "./ui/toaster";
 
 const CesiumDynamicComponent = dynamic(
-  () => import("@/app/components/CesiumComponentRaw"),
+  () => import("@/app/components/CesiumViewer"),
   {
     ssr: false,
   }
@@ -25,7 +26,10 @@ export const CesiumWrapper: React.FunctionComponent = () => {
   }, [CesiumJs]);
 
   return CesiumJs ? (
-    <CesiumDynamicComponent CesiumJs={CesiumJs} />
+    <>
+      <CesiumDynamicComponent CesiumJs={CesiumJs} />
+      <Toaster />
+    </>
   ) : (
     <Loading />
   );

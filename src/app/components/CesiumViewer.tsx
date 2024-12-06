@@ -6,6 +6,8 @@ import { Viewer, sampleTerrainMostDetailed } from "cesium";
 import MobileToolbar from "./Toolbar/MobileToolbar";
 import DesktopToolbar from "./Toolbar/DesktopToolbar";
 
+import { useToast } from "@/app/hooks/use-toast";
+
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
@@ -21,6 +23,8 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   const [locationError, setLocationError] = useState<string | null>(null);
 
+  const { toast } = useToast();
+
   // Detect screen size
   useEffect(() => {
     const handleResize = () => {
@@ -35,7 +39,6 @@ export const CesiumComponentRaw: FunctionComponent<{
       window.removeEventListener("resize", handleResize); // Clean up on unmount
     };
   }, []);
-
   // Get user's current location using Geolocation API
   useEffect(() => {
     if (navigator.geolocation) {
@@ -50,10 +53,19 @@ export const CesiumComponentRaw: FunctionComponent<{
           console.log(position);
         },
         (error) => {
-          setLocationError(
-            "Unable to access your location. Check location services in browser settings."
-          );
           console.error("Error getting user location:", error);
+          setUserPosition({
+            latitude: 30.435975,
+            longitude: -97.685133,
+            height: 0,
+          });
+          toast({
+            title: "Unable to access your location.",
+            description:
+              "Check location services in browser settings or refresh the page. Using Phoenix HQ Position.",
+            variant: "default", // Red background for error
+            duration: 3000,
+          });
         }
       );
     } else {
@@ -126,10 +138,12 @@ export const CesiumComponentRaw: FunctionComponent<{
                   cesiumViewer.current?.entities.add({
                     position: adjustedPosition,
                     billboard: new CesiumJs.BillboardGraphics({
-                      image: imageUrl, // Convert canvas to data URL for the billboard
+                      image: locationError
+                        ? "/assets/phoenix-logo.svg"
+                        : "/assets/home.png", // Convert canvas to data URL for the billboard
                       verticalOrigin: CesiumJs.VerticalOrigin.BOTTOM, // Ensures the image stays at the bottom
                       heightReference: CesiumJs.HeightReference.CLAMP_TO_GROUND, // Keeps the billboard above the terrain
-                      scale: 0.3, // Set a fixed scale factor to keep it small
+                      scale: locationError ? 1 : 0.3, // Set a fixed scale factor to keep it small
                       scaleByDistance: new CesiumJs.NearFarScalar(
                         100.0, // Near distance (beyond which scale starts reducing)
                         1.0, // Scale factor at near distance
@@ -196,7 +210,7 @@ export const CesiumComponentRaw: FunctionComponent<{
         cesiumViewer.current?.destroy(); // Cleanup when component unmounts
       };
     }
-  }, [userPosition, CesiumJs]);
+  }, [userPosition, CesiumJs, locationError]);
 
   const resetTopView = () => {
     if (userPosition && cesiumViewer.current) {
@@ -220,28 +234,17 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
   return (
     <>
-      {locationError && (
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-red-100 text-red-600 p-4 rounded-md shadow-md text-center"
-          role="alert"
-        >
-          {locationError}
-        </div>
-      )}
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
         className="absolute inset-0 h-full w-full overflow-hidden"
       />
-
-      {/* Conditionally render the Toolbar based on screen size */}
-      {isMobile ? (
-        // Render on mobile screens (small screens)
-        <MobileToolbar onClick={resetTopView} />
+      {/* Render toolbars only when location is accessible */}
+      (isMobile ? (
+      <MobileToolbar onClick={resetTopView} />
       ) : (
-        // Render on md or larger screens
-        <DesktopToolbar onClick={resetTopView} />
-      )}
+      <DesktopToolbar onClick={resetTopView} />
+      ))
     </>
   );
 };
