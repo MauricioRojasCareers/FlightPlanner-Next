@@ -5,12 +5,9 @@ import React from "react";
 import type { CesiumType } from "../types/cesium";
 import Loading from "@/app/Components/Loading";
 
-const CesiumDynamicComponent = dynamic(
-  () => import("@/app/Components/CesiumComponentRaw"),
-  {
-    ssr: false,
-  }
-);
+const CesiumDynamicComponent = dynamic(() => import("./CesiumComponentRaw"), {
+  ssr: false,
+});
 
 export const CesiumWrapper: React.FunctionComponent = () => {
   const [CesiumJs, setCesiumJs] = React.useState<CesiumType | null>(null);
