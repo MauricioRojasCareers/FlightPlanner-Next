@@ -70,7 +70,6 @@ export const CesiumComponentRaw: FunctionComponent<{
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
-      console.error("Geolocation is not supported by this browser.");
     }
   }, []);
 
@@ -118,21 +117,6 @@ export const CesiumComponentRaw: FunctionComponent<{
                     userPosition.latitude,
                     terrainHeight + 5 // Adjust height slightly above the terrain
                   );
-
-                  // Create a canvas element for the rectangle
-                  const canvas = document.createElement("canvas");
-                  canvas.width = 100; // Rectangle width
-                  canvas.height = 50; // Rectangle height
-
-                  const context = canvas.getContext("2d");
-                  if (context) {
-                    context.fillStyle = "white"; // Rectangle color
-                    context.fillRect(0, 0, canvas.width, canvas.height);
-                  }
-
-                  // URL for the external image to be used as the billboard
-                  // const imageUrl = "/static/assets/homepng.png";
-                  const imageUrl = "/assets/homepng.png";
 
                   // Add a billboard and label
                   cesiumViewer.current?.entities.add({
