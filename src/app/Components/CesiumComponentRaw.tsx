@@ -3,8 +3,6 @@ import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
-import "cesium/Build/Cesium/Widgets/widgets.css";
-
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
@@ -213,7 +211,7 @@ export const CesiumComponentRaw: FunctionComponent<{
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
-        className="absolute inset-0"
+        className="absolute inset-0 h-full w-full overflow-hidden"
       />
 
       <button
