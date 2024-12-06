@@ -53,6 +53,9 @@ export const CesiumComponentRaw: FunctionComponent<{
           console.log(position);
         },
         (error) => {
+          setLocationError(
+            "Unable to access your location. Check location services in browser settings."
+          );
           console.error("Error getting user location:", error);
           setUserPosition({
             latitude: 30.435975,
