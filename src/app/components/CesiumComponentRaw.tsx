@@ -3,6 +3,9 @@ import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
+import MobileToolbar from "./Toolbar/MobileToolbar";
+import DesktopToolbar from "./Toolbar/DesktopToolbar";
+
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
@@ -12,9 +15,26 @@ export const CesiumComponentRaw: FunctionComponent<{
     document.createElement("div")
   );
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
   const [userPosition, setUserPosition] = useState<UserPosition | null>(null);
 
   const [locationError, setLocationError] = useState<string | null>(null);
+
+  // Detect screen size
+  useEffect(() => {
+    const handleResize = () => {
+      // Check window width and update state
+      setIsMobile(window.innerWidth < 768); // Tailwind's `md` breakpoint is 768px
+    };
+
+    handleResize(); // Call initially to set state based on current window size
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Clean up on unmount
+    };
+  }, []);
 
   // Get user's current location using Geolocation API
   useEffect(() => {
@@ -178,7 +198,7 @@ export const CesiumComponentRaw: FunctionComponent<{
     }
   }, [userPosition, CesiumJs]);
 
-  const topDownView = () => {
+  const resetTopView = () => {
     if (userPosition && cesiumViewer.current) {
       const topDownHeight = 800;
       const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
@@ -214,12 +234,14 @@ export const CesiumComponentRaw: FunctionComponent<{
         className="absolute inset-0 h-full w-full overflow-hidden"
       />
 
-      <button
-        onClick={topDownView}
-        className="absolute top-4 right-4 md:right-4 md:top-4 md:left-auto md:bottom-auto text-rose-600 py-2 px-4 bg-white rounded-2xl text-xs shadow-lg hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500 w-auto mx-auto md:mx-0"
-      >
-        Home Button!
-      </button>
+      {/* Conditionally render the Toolbar based on screen size */}
+      {isMobile ? (
+        // Render on mobile screens (small screens)
+        <MobileToolbar onClick={resetTopView} />
+      ) : (
+        // Render on md or larger screens
+        <DesktopToolbar onClick={resetTopView} />
+      )}
     </>
   );
 };
