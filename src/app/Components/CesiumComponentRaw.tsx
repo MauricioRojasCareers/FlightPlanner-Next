@@ -1,5 +1,6 @@
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
+import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
 import "cesium/Build/Cesium/Widgets/widgets.css";
@@ -12,21 +13,16 @@ export const CesiumComponentRaw: FunctionComponent<{
   const customCreditContainerRef = useRef<HTMLDivElement>(
     document.createElement("div")
   );
+
+  const [userPosition, setUserPosition] = useState<UserPosition | null>(null);
+
   const [locationError, setLocationError] = useState<string | null>(null);
 
-  const [userPosition, setUserPosition] = useState<{
-    latitude: number;
-    longitude: number;
-    height?: number;
-  } | null>(null);
-
+  // Get user's current location using Geolocation API
   useEffect(() => {
-    // Get user's current location using Geolocation API
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-
           setUserPosition({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -50,15 +46,7 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   useEffect(() => {
     if (userPosition && !cesiumViewer.current && cesiumContainerRef.current) {
-      //OPTIONAL: Assign access Token here
-      //Guide: https://cesium.com/learn/ion/cesium-ion-access-tokens/
       CesiumJs.Ion.defaultAccessToken = `${process.env.NEXT_PUBLIC_CESIUM_TOKEN}`;
-
-      // Have to resort back to viewer unfortunately because I want to draw entities. Sucks!!!! But here is the widget in case you want it
-      // cesiumViewer.current = new CesiumJs.CesiumWidget("cesiumContainer", {
-      //   terrain: CesiumJs.Terrain.fromWorldTerrain(),
-      //   creditContainer: customCreditContainerRef.current,
-      // });
 
       cesiumViewer.current = new CesiumJs.Viewer(cesiumContainerRef.current, {
         terrain: CesiumJs.Terrain.fromWorldTerrain(),
@@ -190,7 +178,7 @@ export const CesiumComponentRaw: FunctionComponent<{
         cesiumViewer.current?.destroy(); // Cleanup when component unmounts
       };
     }
-  }, [userPosition]);
+  }, [userPosition, CesiumJs]);
 
   const topDownView = () => {
     if (userPosition && cesiumViewer.current) {

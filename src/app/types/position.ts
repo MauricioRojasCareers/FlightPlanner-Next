@@ -1,5 +1,5 @@
-export type Position = {
-    lat: number,
-    lng: number
-  }
-  
+export type UserPosition = {
+  latitude: number;
+  longitude: number;
+  height?: number;
+};
