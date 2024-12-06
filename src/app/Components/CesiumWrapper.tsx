@@ -3,10 +3,10 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import type { CesiumType } from "../types/cesium";
-import Loading from "@/app/components/Loading";
+import Loading from "@/app/Components/Loading";
 
 const CesiumDynamicComponent = dynamic(
-  () => import("@/app/components/CesiumComponentRaw"),
+  () => import("@/app/Components/CesiumComponentRaw"),
   {
     ssr: false,
   }
