@@ -302,13 +302,12 @@ export const CesiumComponentRaw: FunctionComponent<{
         ref={cesiumContainerRef}
         id="cesiumContainer"
         className="absolute inset-0 h-full w-full overflow-hidden"
-      >
-        {isMobile ? (
-          <MobileToolbar onClick={resetTopView} onAction={enterFullScreen} />
-        ) : (
-          <DesktopToolbar onClick={resetTopView} onAction={enterFullScreen} />
-        )}
-      </div>
+      />
+      {isMobile ? (
+        <MobileToolbar onClick={resetTopView} onAction={enterFullScreen} />
+      ) : (
+        <DesktopToolbar onClick={resetTopView} onAction={enterFullScreen} />
+      )}
 
       {/* Conditionally render First Time Visitor views */}
       {locationPermission === null &&
