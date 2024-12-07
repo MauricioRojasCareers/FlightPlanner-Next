@@ -1,1 +1,1 @@
-![alt text](/og.png)
+![Flight Planner](/public/og.png)
