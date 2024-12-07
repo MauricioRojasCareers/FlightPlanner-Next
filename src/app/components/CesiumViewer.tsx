@@ -3,10 +3,11 @@ import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
-import MobileToolbar from "./Toolbar/MobileToolbar";
-import DesktopToolbar from "./Toolbar/DesktopToolbar";
+import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
+import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
 
 import { useToast } from "@/app/hooks/use-toast";
+import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -163,41 +164,18 @@ export const CesiumComponentRaw: FunctionComponent<{
         },
       });
 
-      // Event listener for 'R' key press to switch to top-down view
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "r" || event.key === "R") {
-          // Adjust camera height for a less zoomed-in top-down view
-          const topDownHeight = 1100; // Adjust this value to control zoom level
-
-          // Set camera to top-down view (orthogonal view)
-          const topDownPosition = CesiumJs.Cartesian3.fromDegrees(
-            userPosition.longitude,
-            userPosition.latitude,
-            topDownHeight // Higher altitude for a broader view
-          );
-
-          // Animate camera transition to the top-down view
-          cesiumViewer.current?.camera.flyTo({
-            destination: topDownPosition,
-            orientation: {
-              heading: CesiumJs.Math.toRadians(0.0),
-              pitch: CesiumJs.Math.toRadians(-90), // Top-down view
-              roll: 0.0,
-            },
-            duration: 1, // Duration of the animation in seconds
-            // easingFunction: CesiumJs.EasingFunction.LINEAR, // Optional: easing for smooth transition
-          });
-        }
-      };
-
-      // Add event listener for keydown
-      window.addEventListener("keydown", handleKeyDown);
-
       return () => {
         cesiumViewer.current?.destroy(); // Cleanup when component unmounts
       };
     }
   }, [userPosition, CesiumJs, locationError]);
+
+  useCesiumKeyControls({
+    cesiumViewer,
+    userLongitude: userPosition?.longitude || 0,
+    userLatitude: userPosition?.latitude || 0,
+    CesiumJs,
+  });
 
   const resetTopView = () => {
     if (userPosition && cesiumViewer.current) {
@@ -226,12 +204,11 @@ export const CesiumComponentRaw: FunctionComponent<{
         id="cesiumContainer"
         className="absolute inset-0 h-full w-full overflow-hidden"
       />
-      {/* Render toolbars only when location is accessible */}
-      (isMobile ? (
-      <MobileToolbar onClick={resetTopView} />
+      {isMobile ? (
+        <MobileToolbar onClick={resetTopView} />
       ) : (
-      <DesktopToolbar onClick={resetTopView} />
-      ))
+        <DesktopToolbar onClick={resetTopView} />
+      )}
     </>
   );
 };
