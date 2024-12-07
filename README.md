@@ -1,7 +1,11 @@
 # FlightPlanner NextGeneration
 
-<br />
+<br/>
+
 ![Flight Planner](/public/og.png)
 <br />
+
 <hr />
-<img src="/public/UseCase.gif" alt="Use Case Overview" style="width: 100%; height: auto;" />
+<div class="flex justify-center items-center">
+  <img src="/public/UseCase.gif" alt="Use Case Overview" class="w-full h-auto" />
+</div>
