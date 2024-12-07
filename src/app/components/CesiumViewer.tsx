@@ -258,11 +258,10 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
 
   const enterFullScreen = () => {
-    const cesiumContainer = cesiumContainerRef.current;
-    if (cesiumContainer) {
-      if (!isFullscreen) {
-        // Enter fullscreen
-        cesiumContainer.requestFullscreen().catch((err) => {
+    if (cesiumViewer) {
+      if (!document.fullscreenElement) {
+        // Enter fullscreen using the container
+        cesiumViewer.current?.container.requestFullscreen().catch((err) => {
           console.error("Error attempting to enable full-screen mode:", err);
         });
       } else {
