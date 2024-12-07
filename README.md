@@ -7,5 +7,5 @@
 
 <hr />
 <div class="flex justify-center items-center">
-  <img src="/public/UseCase.gif" alt="Use Case Overview" class="w-full h-auto" />
+  <img src="/public/UseCase.gif" alt="Use Case Overview" width="250" height="250" />
 </div>
