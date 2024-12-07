@@ -19,11 +19,11 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
     >
       <Button
         size="icon"
-        variant="secondary"
-        className="text-black hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+        variant="north"
         onClick={resetView}
+        className="hover:text-white active:scale-90"
       >
-        <Navigation size={24} />
+        <Navigation size={24} className="fill-blue-500 transition-all" />
       </Button>
       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs bg-black text-white p-1 rounded-md">
         Go to Home

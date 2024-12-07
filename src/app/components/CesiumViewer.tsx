@@ -62,18 +62,26 @@ export const CesiumComponentRaw: FunctionComponent<{
     };
   }, []);
 
-  // Detect screen size
+  // Detect screen size and fullscreen state
   useEffect(() => {
-    const handleResize = () => {
-      // Check window width and update state
-      setIsMobile(window.innerWidth < 768); // Tailwind's `md` breakpoint is 768px
+    const handleResizeOrFullscreen = () => {
+      const isFullscreenActive = !!document.fullscreenElement;
+      const width = window.innerWidth;
+
+      // Set `isMobile` considering both fullscreen and screen size
+      setIsMobile(isFullscreenActive ? width < 768 : width < 768);
     };
 
-    handleResize(); // Call initially to set state based on current window size
-    window.addEventListener("resize", handleResize);
+    handleResizeOrFullscreen(); // Initial check
+    window.addEventListener("resize", handleResizeOrFullscreen);
+    document.addEventListener("fullscreenchange", handleResizeOrFullscreen);
 
     return () => {
-      window.removeEventListener("resize", handleResize); // Clean up on unmount
+      window.removeEventListener("resize", handleResizeOrFullscreen);
+      document.removeEventListener(
+        "fullscreenchange",
+        handleResizeOrFullscreen
+      );
     };
   }, []);
 
@@ -302,8 +310,7 @@ export const CesiumComponentRaw: FunctionComponent<{
         )}
       </div>
 
-      {/* Conditionally render Flight Planner if location access is granted */}
-      {/* Conditionally render FirstTimeVisitor if location access is null */}
+      {/* Conditionally render First Time Visitor views */}
       {locationPermission === null &&
         (isMobile ? (
           <MobileFirstTimeVisitorView />
