@@ -23,6 +23,8 @@ export const CesiumComponentRaw: FunctionComponent<{
     document.createElement("div")
   );
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const [userPosition, setUserPosition] = useState<UserPosition | null>(null);
@@ -255,18 +257,51 @@ export const CesiumComponentRaw: FunctionComponent<{
       });
     }
   };
+
+  const enterFullScreen = () => {
+    const cesiumContainer = cesiumContainerRef.current;
+    if (cesiumContainer) {
+      if (!isFullscreen) {
+        // Enter fullscreen
+        cesiumContainer.requestFullscreen().catch((err) => {
+          console.error("Error attempting to enable full-screen mode:", err);
+        });
+      } else {
+        // Exit fullscreen
+        document.exitFullscreen().catch((err) => {
+          console.error("Error attempting to exit full-screen mode:", err);
+        });
+      }
+    }
+  };
+
+  // Listen to fullscreen change events
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement); // Update state based on fullscreen status
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
   return (
     <>
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
         className="absolute inset-0 h-full w-full overflow-hidden"
-      />
-      {isMobile ? (
-        <MobileToolbar onClick={resetTopView} />
-      ) : (
-        <DesktopToolbar onClick={resetTopView} />
-      )}
+      >
+        {isMobile ? (
+          <MobileToolbar onClick={resetTopView} onAction={enterFullScreen} />
+        ) : (
+          <DesktopToolbar onClick={resetTopView} onAction={enterFullScreen} />
+        )}
+      </div>
+
       {/* Conditionally render Flight Planner if location access is granted */}
       {/* Conditionally render FirstTimeVisitor if location access is null */}
       {locationPermission === null &&

@@ -6,16 +6,19 @@ import DrawButton from "@/app/components/Toolbar/DrawButton";
 import NorthButton from "@/app/components/Toolbar/NorthButton";
 import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 import Image from "next/image";
+import MaximizeButton from "../MaximizeButton";
 
 interface ToolbarProps {
   onClick: () => void;
+  onAction: () => void;
 }
 
 const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
+  onAction: enterFullScreen,
 }) => {
   return (
-    <div className="absolute w-full h-[10%] p-4 flex flex-row items-center justify-between">
+    <div className="absolute w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
       {/* Avatar & Search Bar */}
       <div className="flex items-center w-1/2 gap-4">
         {/* Avatar */}
@@ -38,6 +41,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
           />
         </div>
         <NorthButton onClick={resetView} />
+        <MaximizeButton onClick={enterFullScreen} />
       </div>
 
       {/* Toolbar Buttons */}
