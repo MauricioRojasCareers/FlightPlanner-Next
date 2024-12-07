@@ -7,7 +7,9 @@
 
 <hr />
 
-![Flight Planner](/public/Thumbnail.png)
+<div class="flex justify-center items-center">
+  <img src="/public/Thumbnail.png" alt="Thumbnail" width="100%" height="100%" />
+</div>
 
 <hr />
 <div class="flex justify-center items-center">
