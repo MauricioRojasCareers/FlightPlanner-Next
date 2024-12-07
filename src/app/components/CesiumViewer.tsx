@@ -62,29 +62,20 @@ export const CesiumComponentRaw: FunctionComponent<{
     };
   }, []);
 
-  // Detect screen size and fullscreen state
+  // Detect screen size
   useEffect(() => {
-    const handleResizeOrFullscreen = () => {
-      const isFullscreenActive = !!document.fullscreenElement;
-      const width = window.innerWidth;
-
-      // Set `isMobile` considering both fullscreen and screen size
-      setIsMobile(isFullscreenActive ? width < 768 : width < 768);
+    const handleResize = () => {
+      // Check window width and update state
+      setIsMobile(window.innerWidth < 768); // Tailwind's `md` breakpoint is 768px
     };
 
-    handleResizeOrFullscreen(); // Initial check
-    window.addEventListener("resize", handleResizeOrFullscreen);
-    document.addEventListener("fullscreenchange", handleResizeOrFullscreen);
+    handleResize(); // Call initially to set state based on current window size
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResizeOrFullscreen);
-      document.removeEventListener(
-        "fullscreenchange",
-        handleResizeOrFullscreen
-      );
+      window.removeEventListener("resize", handleResize); // Clean up on unmount
     };
   }, []);
-
   // useEffect(() => {
   //   const handleLocationAccess = () => {
   //     if (!locationPermission) {
