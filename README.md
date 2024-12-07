@@ -1,3 +1,3 @@
-# Flight Planner
+# FlightPlanner NextGeneration
 
 ![Flight Planner](/public/og.png)
