@@ -258,33 +258,30 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
 
   const enterFullScreen = () => {
-    if (cesiumViewer) {
-      if (!document.fullscreenElement) {
-        // Enter fullscreen using the container
-        cesiumViewer.current?.container.requestFullscreen().catch((err) => {
-          console.error("Error attempting to enable full-screen mode:", err);
-        });
-      } else {
-        // Exit fullscreen
-        document.exitFullscreen().catch((err) => {
-          console.error("Error attempting to exit full-screen mode:", err);
-        });
+    if (!cesiumViewer.current) return;
+
+    const canvas = cesiumViewer.current.canvas;
+
+    if (document.fullscreenElement) {
+      // Exit fullscreen
+      document
+        .exitFullscreen()
+        .catch((err) => console.error("Error exiting full-screen:", err));
+    } else {
+      // Enter fullscreen
+      if (canvas.requestFullscreen) {
+        canvas
+          .requestFullscreen()
+          .catch((err) => console.error("Error entering full-screen:", err));
+      } else if ((canvas as any).webkitRequestFullscreen) {
+        (canvas as any).webkitRequestFullscreen();
+      } else if ((canvas as any).mozRequestFullScreen) {
+        (canvas as any).mozRequestFullScreen();
+      } else if ((canvas as any).msRequestFullscreen) {
+        (canvas as any).msRequestFullscreen();
       }
     }
   };
-
-  // Listen to fullscreen change events
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement); // Update state based on fullscreen status
-    };
-
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
-  }, []);
 
   return (
     <>
