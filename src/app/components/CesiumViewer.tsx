@@ -2,7 +2,6 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
-import { motion } from "framer-motion";
 
 import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
 import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
@@ -10,6 +9,8 @@ import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
 import { useToast } from "@/app/hooks/use-toast";
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import DesktopFirstTimeVisitorView from "./_FirstTimeVisitor/DesktopView/page";
+import MobileFirstTimeVisitorView from "./_FirstTimeVisitor/MobileView//page";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -114,6 +115,7 @@ export const CesiumComponentRaw: FunctionComponent<{
 
       cesiumViewer.current = new CesiumJs.Viewer(cesiumContainerRef.current, {
         terrain: CesiumJs.Terrain.fromWorldTerrain(),
+        infoBox: false,
         creditContainer: customCreditContainerRef.current,
         fullscreenButton: false,
         timeline: false,
@@ -241,16 +243,13 @@ export const CesiumComponentRaw: FunctionComponent<{
         <DesktopToolbar onClick={resetTopView} />
       )}
       {/* Conditionally render Flight Planner if location access is granted */}
-      {locationPermission === null && (
-        <motion.div
-          className="absolute inset-0 flex justify-center items-center text-white"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <h1 className="text-6xl font-bold">Flight Planner</h1>
-        </motion.div>
-      )}
+      {/* Conditionally render FirstTimeVisitor if location access is null */}
+      {locationPermission === null &&
+        (isMobile ? (
+          <MobileFirstTimeVisitorView />
+        ) : (
+          <DesktopFirstTimeVisitorView />
+        ))}
     </>
   );
 };
