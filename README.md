@@ -1,4 +1,4 @@
 # FlightPlanner NextGeneration
 
 ![Flight Planner](/public/og.png)
-![Use Case Overview](/public/UseCase.gif)
+<img src="/public/UseCase.gif" alt="Use Case Overview" style="width: 100%; height: auto;" />
