@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import MenuButton from "@/app/components/Toolbar/MenuButton";
 import MaximizeButton from "../MaximizeButton";
+import OpenMissionButton from "../OpenMissionsButton";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -24,8 +25,8 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 
       {/* Menu Button */}
       <div className="flex justify-end w-1/2 h-full gap-2">
+        <OpenMissionButton onClick={resetView} />
         <MenuButton onClick={resetView} />
-        <MaximizeButton onClick={enterFullScreen} />
       </div>
     </div>
   );
