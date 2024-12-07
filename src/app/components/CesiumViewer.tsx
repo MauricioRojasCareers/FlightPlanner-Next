@@ -2,16 +2,20 @@ import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
+import { motion } from "framer-motion";
 
 import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
 import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
 
 import { useToast } from "@/app/hooks/use-toast";
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
+  const [locationAccessGranted, setLocationAccessGranted] =
+    useState<boolean>(true);
   const cesiumViewer = useRef<Viewer | null>(null);
   const cesiumContainerRef = useRef<HTMLDivElement>(null);
   const customCreditContainerRef = useRef<HTMLDivElement>(
@@ -23,6 +27,10 @@ export const CesiumComponentRaw: FunctionComponent<{
   const [userPosition, setUserPosition] = useState<UserPosition | null>(null);
 
   const [locationError, setLocationError] = useState<string | null>(null);
+
+  const [locationPermission, setLocationPermission] = useLocalStorage<
+    "granted" | "denied" | null
+  >("locationPermission", null);
 
   const { toast } = useToast();
 
@@ -40,11 +48,32 @@ export const CesiumComponentRaw: FunctionComponent<{
       window.removeEventListener("resize", handleResize); // Clean up on unmount
     };
   }, []);
+
+  // useEffect(() => {
+  //   const handleLocationAccess = () => {
+  //     if (!locationPermission) {
+  //       navigator.geolocation.getCurrentPosition(
+  //         (position) => {
+  //           setLocationPermission("granted");
+  //           console.log("Location granted");
+  //         },
+  //         (error) => {
+  //           console.error("Error getting location:", error);
+  //           setLocationPermission("denied");
+  //         }
+  //       );
+  //     }
+  //   };
+
+  //   handleLocationAccess();
+  // }, [locationPermission, setLocationPermission]);
   // Get user's current location using Geolocation API
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          setLocationPermission("granted");
+          console.log("Location granted");
           setUserPosition({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -57,6 +86,8 @@ export const CesiumComponentRaw: FunctionComponent<{
           setLocationError(
             "Unable to access your location. Check location services in browser settings."
           );
+          console.error("Error getting location:", error);
+          setLocationPermission("denied");
           console.error("Error getting user location:", error);
           setUserPosition({
             latitude: 30.435975,
@@ -208,6 +239,17 @@ export const CesiumComponentRaw: FunctionComponent<{
         <MobileToolbar onClick={resetTopView} />
       ) : (
         <DesktopToolbar onClick={resetTopView} />
+      )}
+      {/* Conditionally render Flight Planner if location access is granted */}
+      {locationPermission === null && (
+        <motion.div
+          className="absolute inset-0 flex justify-center items-center text-white"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <h1 className="text-6xl font-bold">Flight Planner</h1>
+        </motion.div>
       )}
     </>
   );
