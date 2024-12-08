@@ -13,11 +13,13 @@ import OpenMissionButton from "../OpenMissionsButton";
 interface ToolbarProps {
   onClick: () => void;
   onAction: () => void;
+  onTiltView: () => void;
 }
 
 const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
   onAction: enterFullScreen,
+  onTiltView: tiltView,
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -58,7 +60,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         <div className="flex items-center w-3/4">
           <SearchBar />
         </div>
-        <NorthButton onClick={resetView} />
+        <NorthButton onTiltView={tiltView} />
         {/* Fullscreen Button */}
 
         {isFullscreen ? (
@@ -71,7 +73,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
       {/* Toolbar Buttons */}
       <div className="flex flex-row gap-4 justify-end">
         {/* <HomeButton onClick={resetView} /> */}
-        <TerrainButton onClick={resetView} />
+        <TerrainButton onTiltView={tiltView} />
         <DrawButton onClick={resetView} />
         <OpenMissionButton onClick={resetView} />
 

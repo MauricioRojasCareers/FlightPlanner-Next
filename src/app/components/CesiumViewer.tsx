@@ -79,24 +79,7 @@ export const CesiumComponentRaw: FunctionComponent<{
       window.removeEventListener("resize", handleResize); // Clean up on unmount
     };
   }, []);
-  // useEffect(() => {
-  //   const handleLocationAccess = () => {
-  //     if (!locationPermission) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         (position) => {
-  //           setLocationPermission("granted");
-  //           console.log("Location granted");
-  //         },
-  //         (error) => {
-  //           console.error("Error getting location:", error);
-  //           setLocationPermission("denied");
-  //         }
-  //       );
-  //     }
-  //   };
 
-  //   handleLocationAccess();
-  // }, [locationPermission, setLocationPermission]);
   // Get user's current location using Geolocation API
   useEffect(() => {
     if (navigator.geolocation) {
@@ -261,13 +244,43 @@ export const CesiumComponentRaw: FunctionComponent<{
     }
   };
 
-  const { toggleFullScreen } = useFullScreen();
+  const tiltViewToTerrain = () => {
+    if (userPosition && cesiumViewer.current) {
+      const viewer = cesiumViewer.current;
 
-  // const handleFullScreen = () => {
-  //   if (cesiumContainerRef.current) {
-  //     enterFullScreen(cesiumContainerRef.current);
-  //   }
-  // };
+      const tiltHeight = 1000; // Adjust height for the desired view
+      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
+        userPosition.longitude,
+        userPosition.latitude,
+        tiltHeight
+      );
+
+      // Use lookAt to target the user's position and offset to tilt upwards
+      const offset = new CesiumJs.Cartesian3(0.0, 0.0, -tiltHeight / 2); // Adjust offset for a more dramatic tilt
+
+      // Focus the camera on the user's position
+      viewer.camera.lookAt(userPositionCartesian, offset);
+
+      // Transition to the horizon view
+      viewer.camera.flyTo({
+        destination: userPositionCartesian,
+        orientation: {
+          heading: viewer.camera.heading, // Keep the current heading
+          pitch: CesiumJs.Math.toRadians(15), // Tilt slightly upward to reveal the horizon
+          roll: 0.0, // Keep roll level
+        },
+        duration: 2.0, // Smooth transition
+        complete: () => {
+          // Reset the camera transform to avoid locking it to the target
+          viewer.camera.lookAtTransform(CesiumJs.Matrix4.IDENTITY);
+        },
+      });
+    } else {
+      console.warn("User position or viewer is not available.");
+    }
+  };
+
+  const { toggleFullScreen } = useFullScreen();
 
   return (
     <>
@@ -276,12 +289,6 @@ export const CesiumComponentRaw: FunctionComponent<{
         id="cesiumContainer"
         className="relative w-screen h-screen md:overflow-hidden"
       >
-        {/* {isMobile ? (
-          <></>
-        ) : (
-          <DesktopToolbar onClick={resetTopView} onAction={handleFullScreen} />
-        )} */}
-
         {/* Conditionally render First Time Visitor views */}
         {locationPermission === null &&
           (isMobile ? (
@@ -291,11 +298,14 @@ export const CesiumComponentRaw: FunctionComponent<{
           ))}
       </div>
       {isMobile ? (
-        <MobileToolbar onClick={resetTopView}></MobileToolbar>
+        <MobileToolbar onClick={resetTopView} onTiltView={tiltViewToTerrain} />
       ) : (
-        <DesktopToolbar onClick={resetTopView} onAction={toggleFullScreen} />
+        <DesktopToolbar
+          onClick={resetTopView}
+          onAction={toggleFullScreen}
+          onTiltView={tiltViewToTerrain}
+        />
       )}
-      {/* {isMobile ? <MobileToolbar onClick={resetTopView} /> : null} */}
     </>
   );
 };

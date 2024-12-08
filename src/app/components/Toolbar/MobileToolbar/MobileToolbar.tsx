@@ -9,10 +9,12 @@ import NorthButton from "../NorthButton";
 
 interface ToolbarProps {
   onClick: () => void;
+  onTiltView: () => void;
 }
 
 const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
+  onTiltView: tiltView,
 }) => {
   return (
     <>
@@ -33,12 +35,12 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
         {/* Menu Button */}
         <div className="flex justify-end h-full gap-2 items-center ">
           <DrawButton />
-          <TerrainButton onClick={resetView} />
+          <TerrainButton onTiltView={tiltView} />
         </div>
       </div>
       {/* NorthButton anchored in the bottom-right corner */}
       <div className="absolute bottom-4 right-4">
-        <NorthButton onClick={resetView} />
+        <NorthButton onTiltView={resetView} />
       </div>
     </>
   );

@@ -5,11 +5,11 @@ import { Button } from "@/app/components/ui/button";
 import { motion } from "framer-motion";
 
 interface ToolbarProps {
-  onClick: () => void;
+  onTiltView: () => void;
 }
 
 const HomeButton: FunctionComponent<ToolbarProps> = ({
-  onClick: resetView,
+  onTiltView: tiltView,
 }) => {
   return (
     <motion.div
@@ -20,7 +20,7 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
       <Button
         size="icon"
         variant="north"
-        onClick={resetView}
+        onClick={tiltView}
         className="active:scale-90  text-green-700 "
       >
         <Mountain size={24} className="fill-green-300" />
