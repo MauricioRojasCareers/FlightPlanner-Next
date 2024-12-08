@@ -3,14 +3,17 @@ import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
-import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
-import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
-
-import { useToast } from "@/app/hooks/use-toast";
-import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import DesktopFirstTimeVisitorView from "./_FirstTimeVisitor/DesktopView/page";
 import MobileFirstTimeVisitorView from "./_FirstTimeVisitor/MobileView//page";
+import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
+import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
+// import "cesium/Build/Cesium/Widgets/widgets.css";
+
+// Import Hooks
+import { useToast } from "@/app/hooks/use-toast";
+import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
+import useFullScreen from "../hooks/useFullScreen";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -257,29 +260,11 @@ export const CesiumComponentRaw: FunctionComponent<{
     }
   };
 
-  const enterFullScreen = () => {
-    if (!cesiumViewer.current) return;
+  const { enterFullScreen } = useFullScreen();
 
-    const canvas = cesiumViewer.current.canvas;
-
-    if (document.fullscreenElement) {
-      // Exit fullscreen
-      document
-        .exitFullscreen()
-        .catch((err) => console.error("Error exiting full-screen:", err));
-    } else {
-      // Enter fullscreen
-      if (canvas.requestFullscreen) {
-        canvas
-          .requestFullscreen()
-          .catch((err) => console.error("Error entering full-screen:", err));
-      } else if ((canvas as any).webkitRequestFullscreen) {
-        (canvas as any).webkitRequestFullscreen();
-      } else if ((canvas as any).mozRequestFullScreen) {
-        (canvas as any).mozRequestFullScreen();
-      } else if ((canvas as any).msRequestFullscreen) {
-        (canvas as any).msRequestFullscreen();
-      }
+  const handleFullScreen = () => {
+    if (cesiumContainerRef.current) {
+      enterFullScreen(cesiumContainerRef.current);
     }
   };
 
@@ -288,21 +273,22 @@ export const CesiumComponentRaw: FunctionComponent<{
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
-        className="absolute inset-0 h-full w-full overflow-hidden"
-      />
-      {isMobile ? (
-        <MobileToolbar onClick={resetTopView} onAction={enterFullScreen} />
-      ) : (
-        <DesktopToolbar onClick={resetTopView} onAction={enterFullScreen} />
-      )}
-
-      {/* Conditionally render First Time Visitor views */}
-      {locationPermission === null &&
-        (isMobile ? (
-          <MobileFirstTimeVisitorView />
+        className="relative w-screen h-screen overflow-hidden"
+      >
+        {isMobile ? (
+          <MobileToolbar onClick={resetTopView} onAction={handleFullScreen} />
         ) : (
-          <DesktopFirstTimeVisitorView />
-        ))}
+          <DesktopToolbar onClick={resetTopView} onAction={handleFullScreen} />
+        )}
+
+        {/* Conditionally render First Time Visitor views */}
+        {locationPermission === null &&
+          (isMobile ? (
+            <MobileFirstTimeVisitorView />
+          ) : (
+            <DesktopFirstTimeVisitorView />
+          ))}
+      </div>
     </>
   );
 };

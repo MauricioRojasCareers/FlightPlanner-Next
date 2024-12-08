@@ -1,6 +1,5 @@
 import { FunctionComponent } from "react";
 
-import HomeButton from "@/app/components/Toolbar/HomeButton";
 import MenuButton from "@/app/components/Toolbar/MenuButton";
 import DrawButton from "@/app/components/Toolbar/DrawButton";
 import NorthButton from "@/app/components/Toolbar/NorthButton";
@@ -19,7 +18,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onAction: enterFullScreen,
 }) => {
   return (
-    <div className="absolute w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
+    <div className="absolute top-0 left-0 w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
       {/* Avatar & Search Bar */}
       <div className="flex items-center w-1/2 gap-4">
         {/* Avatar */}
