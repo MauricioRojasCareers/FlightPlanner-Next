@@ -240,6 +240,7 @@ export const CesiumComponentRaw: FunctionComponent<{
   });
 
   const resetTopView = () => {
+    console.log("resetTopView invoked");
     if (userPosition && cesiumViewer.current) {
       const topDownHeight = 800;
       const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
@@ -273,10 +274,10 @@ export const CesiumComponentRaw: FunctionComponent<{
       <div
         ref={cesiumContainerRef}
         id="cesiumContainer"
-        className="relative w-screen h-screen overflow-hidden"
+        className="relative w-screen h-screen md:overflow-hidden"
       >
         {isMobile ? (
-          <MobileToolbar onClick={resetTopView} onAction={handleFullScreen} />
+          <></>
         ) : (
           <DesktopToolbar onClick={resetTopView} onAction={handleFullScreen} />
         )}
@@ -289,6 +290,7 @@ export const CesiumComponentRaw: FunctionComponent<{
             <DesktopFirstTimeVisitorView />
           ))}
       </div>
+      {isMobile ? <MobileToolbar onClick={resetTopView} /> : <></>}
     </>
   );
 };
