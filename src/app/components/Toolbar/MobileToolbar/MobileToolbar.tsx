@@ -5,6 +5,7 @@ import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 import OpenMissionButton from "../OpenMissionsButton";
 import DrawButton from "../DrawButton";
 import SearchBar from "../SearchBar";
+import NorthButton from "../NorthButton";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -30,10 +31,14 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
         </div>
 
         {/* Menu Button */}
-        <div className="flex justify-end w-[2%5] h-full gap-2 items-center ">
+        <div className="flex justify-end h-full gap-2 items-center ">
           <DrawButton />
           <TerrainButton onClick={resetView} />
         </div>
+      </div>
+      {/* NorthButton anchored in the bottom-right corner */}
+      <div className="absolute bottom-4 right-4">
+        <NorthButton onClick={resetView} />
       </div>
     </>
   );
