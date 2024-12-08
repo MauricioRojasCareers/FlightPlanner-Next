@@ -25,9 +25,6 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
       >
         <Home size={24} />
       </Button>
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs bg-black text-white p-1 rounded-md">
-        Go to Home
-      </div>
     </motion.div>
   );
 };

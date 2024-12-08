@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Route } from "lucide-react";
+import { FolderOpen } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 import { motion } from "framer-motion";
@@ -20,10 +20,10 @@ const OpenMissionButton: FunctionComponent<ToolbarProps> = ({
       <Button
         size="icon"
         variant="secondary"
-        className="text-black hover:bg-gray-100 active:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+        className="active:scale-90"
         onClick={resetView}
       >
-        <Route />
+        <FolderOpen />
       </Button>
     </motion.div>
   );

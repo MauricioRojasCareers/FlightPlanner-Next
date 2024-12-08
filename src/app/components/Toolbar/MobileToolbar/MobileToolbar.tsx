@@ -1,7 +1,9 @@
 import { FunctionComponent } from "react";
 import MenuButton from "@/app/components/Toolbar/MenuButton";
-import MaximizeButton from "../MaximizeButton";
+import TerrainButton from "@/app/components/Toolbar/TerrainButton";
+
 import OpenMissionButton from "../OpenMissionsButton";
+import DrawButton from "../DrawButton";
 import SearchBar from "../SearchBar";
 
 interface ToolbarProps {
@@ -15,6 +17,8 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <div className="absolute top-0 left-0 z-10 w-full h-[10%] p-4 flex flex-row items-center justify-between gap-2">
+      <MenuButton onClick={resetView} />
+      <OpenMissionButton onClick={resetView} />
       {/* Search Bar */}
       <div className="flex items-center w-full ">
         <SearchBar />
@@ -22,8 +26,8 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 
       {/* Menu Button */}
       <div className="flex justify-end w-[2%5] h-full gap-2 items-center ">
-        <OpenMissionButton onClick={resetView} />
-        <MenuButton onClick={resetView} />
+        <DrawButton />
+        <TerrainButton onClick={resetView} />
       </div>
     </div>
   );

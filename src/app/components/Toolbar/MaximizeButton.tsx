@@ -4,6 +4,7 @@ import { Maximize } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 import { motion } from "framer-motion";
+import ToolBarButton from "./ToolBarIcon";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -13,18 +14,12 @@ const MaximizeButton: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
 }) => {
   return (
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      <Button size="icon" variant="secondary" onClick={resetView}>
-        <Maximize size={24} />
-      </Button>
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs bg-black text-white p-1 rounded-md">
-        Go to Home
-      </div>
-    </motion.div>
+    <ToolBarButton
+      onClick={resetView}
+      icon={<Maximize size={24} />}
+      reverseHoverEffect={true}
+      iconClassName="hover:scale-110 text-black"
+    />
   );
 };
 

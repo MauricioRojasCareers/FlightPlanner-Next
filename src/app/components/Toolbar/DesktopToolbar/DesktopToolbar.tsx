@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 import MenuButton from "@/app/components/Toolbar/MenuButton";
 import DrawButton from "@/app/components/Toolbar/DrawButton";
@@ -7,6 +7,8 @@ import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 import Image from "next/image";
 import MaximizeButton from "../MaximizeButton";
 import SearchBar from "../SearchBar";
+import CloseFullScreenButton from "../CloseFullScreenButton";
+import OpenMissionButton from "../OpenMissionsButton";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -17,6 +19,26 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
   onAction: enterFullScreen,
 }) => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const checkFullscreen = () => {
+      setIsFullscreen(document.fullscreenElement !== null);
+    };
+
+    document.addEventListener("fullscreenchange", checkFullscreen);
+    return () =>
+      document.removeEventListener("fullscreenchange", checkFullscreen);
+  }, []);
+
+  const handleMaximizeClick = () => {
+    if (isFullscreen) {
+      document.exitFullscreen();
+    } else {
+      enterFullScreen();
+    }
+  };
+
   return (
     <div className="absolute top-0 left-0 w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
       {/* Avatar & Search Bar */}
@@ -37,7 +59,13 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
           <SearchBar />
         </div>
         <NorthButton onClick={resetView} />
-        <MaximizeButton onClick={enterFullScreen} />
+        {/* Fullscreen Button */}
+
+        {isFullscreen ? (
+          <CloseFullScreenButton onClick={handleMaximizeClick} />
+        ) : (
+          <MaximizeButton onClick={enterFullScreen} /> // Enter fullscreen icon
+        )}
       </div>
 
       {/* Toolbar Buttons */}
@@ -45,6 +73,8 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         {/* <HomeButton onClick={resetView} /> */}
         <TerrainButton onClick={resetView} />
         <DrawButton onClick={resetView} />
+        <OpenMissionButton onClick={resetView} />
+
         <MenuButton onClick={resetView} />
       </div>
     </div>
