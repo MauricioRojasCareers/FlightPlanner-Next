@@ -1,35 +1,33 @@
 import { useCallback } from "react";
 
 /**
- * Hook for managing fullscreen functionality.
- * @returns {Function} enterFullScreen - Function to toggle fullscreen mode.
+ * Hook for managing fullscreen functionality for the entire browser window.
+ * @returns {Object} Functions to toggle fullscreen mode.
  */
 const useFullScreen = () => {
-  const enterFullScreen = useCallback((element: HTMLElement | null) => {
-    if (!element) return;
-
-    if (document.fullscreenElement) {
+  const toggleFullScreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      // Enter fullscreen for the entire document
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement
+          .requestFullscreen()
+          .catch((err) => console.error("Error entering full-screen:", err));
+      } else if ((document.documentElement as any).webkitRequestFullscreen) {
+        (document.documentElement as any).webkitRequestFullscreen();
+      } else if ((document.documentElement as any).mozRequestFullScreen) {
+        (document.documentElement as any).mozRequestFullScreen();
+      } else if ((document.documentElement as any).msRequestFullscreen) {
+        (document.documentElement as any).msRequestFullscreen();
+      }
+    } else {
       // Exit fullscreen
       document
         .exitFullscreen()
         .catch((err) => console.error("Error exiting full-screen:", err));
-    } else {
-      // Enter fullscreen
-      if (element.requestFullscreen) {
-        element
-          .requestFullscreen()
-          .catch((err) => console.error("Error entering full-screen:", err));
-      } else if ((element as any).webkitRequestFullscreen) {
-        (element as any).webkitRequestFullscreen();
-      } else if ((element as any).mozRequestFullScreen) {
-        (element as any).mozRequestFullScreen();
-      } else if ((element as any).msRequestFullscreen) {
-        (element as any).msRequestFullscreen();
-      }
     }
   }, []);
 
-  return { enterFullScreen };
+  return { toggleFullScreen };
 };
 
 export default useFullScreen;

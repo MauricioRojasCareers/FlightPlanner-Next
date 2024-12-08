@@ -261,13 +261,13 @@ export const CesiumComponentRaw: FunctionComponent<{
     }
   };
 
-  const { enterFullScreen } = useFullScreen();
+  const { toggleFullScreen } = useFullScreen();
 
-  const handleFullScreen = () => {
-    if (cesiumContainerRef.current) {
-      enterFullScreen(cesiumContainerRef.current);
-    }
-  };
+  // const handleFullScreen = () => {
+  //   if (cesiumContainerRef.current) {
+  //     enterFullScreen(cesiumContainerRef.current);
+  //   }
+  // };
 
   return (
     <>
@@ -276,11 +276,11 @@ export const CesiumComponentRaw: FunctionComponent<{
         id="cesiumContainer"
         className="relative w-screen h-screen md:overflow-hidden"
       >
-        {isMobile ? (
+        {/* {isMobile ? (
           <></>
         ) : (
           <DesktopToolbar onClick={resetTopView} onAction={handleFullScreen} />
-        )}
+        )} */}
 
         {/* Conditionally render First Time Visitor views */}
         {locationPermission === null &&
@@ -290,7 +290,12 @@ export const CesiumComponentRaw: FunctionComponent<{
             <DesktopFirstTimeVisitorView />
           ))}
       </div>
-      {isMobile ? <MobileToolbar onClick={resetTopView} /> : <></>}
+      {isMobile ? (
+        <MobileToolbar onClick={resetTopView}></MobileToolbar>
+      ) : (
+        <DesktopToolbar onClick={resetTopView} onAction={toggleFullScreen} />
+      )}
+      {/* {isMobile ? <MobileToolbar onClick={resetTopView} /> : null} */}
     </>
   );
 };
