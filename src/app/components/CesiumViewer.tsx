@@ -243,40 +243,71 @@ export const CesiumComponentRaw: FunctionComponent<{
       });
     }
   };
-
   const tiltViewToTerrain = () => {
-    if (userPosition && cesiumViewer.current) {
-      const viewer = cesiumViewer.current;
+    console.log("Rotating camera around the center of the screen");
 
-      const tiltHeight = 1000; // Adjust height for the desired view
-      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-        userPosition.longitude,
-        userPosition.latitude,
-        tiltHeight
+    if (cesiumViewer.current) {
+      const viewer = cesiumViewer.current;
+      const scene = viewer.scene;
+      const camera = viewer.camera;
+
+      // 1. Get window dimensions and calculate the center point
+      const cesiumContainer = cesiumContainerRef.current;
+      if (!cesiumContainer) return;
+
+      const windowWidth = cesiumContainer.offsetWidth;
+      const windowHeight = cesiumContainer.offsetHeight;
+      const windowCenter = new CesiumJs.Cartesian2(
+        windowWidth / 2,
+        windowHeight / 2
       );
 
-      // Use lookAt to target the user's position and offset to tilt upwards
-      const offset = new CesiumJs.Cartesian3(0.0, 0.0, -tiltHeight / 2); // Adjust offset for a more dramatic tilt
+      // 2. Cast a ray from the camera through the center of the screen
+      const ray = camera.getPickRay(windowCenter);
+      if (!ray) {
+        console.warn("Unable to get pick ray from camera.");
+        return; // Exit if the ray is undefined
+      }
 
-      // Focus the camera on the user's position
-      viewer.camera.lookAt(userPositionCartesian, offset);
+      // 3. Find intersection point with the globe (ellipsoid)
+      const ellipsoid = scene.mapProjection.ellipsoid;
+      const intersection = CesiumJs.IntersectionTests.rayEllipsoid(
+        ray,
+        ellipsoid
+      );
 
-      // Transition to the horizon view
-      viewer.camera.flyTo({
-        destination: userPositionCartesian,
-        orientation: {
-          heading: viewer.camera.heading, // Keep the current heading
-          pitch: CesiumJs.Math.toRadians(15), // Tilt slightly upward to reveal the horizon
-          roll: 0.0, // Keep roll level
-        },
-        duration: 2.0, // Smooth transition
-        complete: () => {
-          // Reset the camera transform to avoid locking it to the target
-          viewer.camera.lookAtTransform(CesiumJs.Matrix4.IDENTITY);
-        },
-      });
-    } else {
-      console.warn("User position or viewer is not available.");
+      if (!intersection) {
+        console.warn(
+          "No intersection found between the ray and the ellipsoid."
+        );
+        return; // Exit if no intersection
+      }
+
+      const intersectionPoint = CesiumJs.Ray.getPoint(ray, intersection.start);
+      console.log(intersectionPoint);
+
+      console.log("Pivot point at intersection:", intersectionPoint);
+
+      // 4. Rotate the camera around the intersection point
+      const rotationSpeed = 0.01; // Rotation speed in radians per interval
+      const duration = 2000; // Total duration of the rotation in milliseconds
+      const intervalDuration = 10; // Interval for camera updates in ms
+
+      const totalSteps = duration / intervalDuration;
+      let currentStep = 0;
+
+      const timer = setInterval(() => {
+        if (currentStep >= totalSteps) {
+          clearInterval(timer); // Stop rotation after duration ends
+          console.log("Camera rotation completed.");
+          return;
+        }
+
+        // Rotate the camera around the intersection point
+        camera.rotate(intersectionPoint, rotationSpeed);
+
+        currentStep++;
+      }, intervalDuration);
     }
   };
 

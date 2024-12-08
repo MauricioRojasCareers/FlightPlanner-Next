@@ -5,11 +5,11 @@ import { Button } from "@/app/components/ui/button";
 import { motion } from "framer-motion";
 
 interface ToolbarProps {
-  onTiltView: () => void;
+  onClick: () => void;
 }
 
 const HomeButton: FunctionComponent<ToolbarProps> = ({
-  onTiltView: tiltView,
+  onClick: resetView,
 }) => {
   return (
     <motion.div
@@ -20,7 +20,7 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
       <Button
         size="icon"
         variant="north"
-        onClick={tiltView}
+        onClick={resetView}
         className="hover:text-white active:scale-90"
       >
         <Navigation size={24} className="fill-blue-500 transition-all" />

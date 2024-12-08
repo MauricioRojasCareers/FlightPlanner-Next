@@ -60,7 +60,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         <div className="flex items-center w-3/4">
           <SearchBar />
         </div>
-        <NorthButton onTiltView={tiltView} />
+        <NorthButton onClick={resetView} />
         {/* Fullscreen Button */}
 
         {isFullscreen ? (
