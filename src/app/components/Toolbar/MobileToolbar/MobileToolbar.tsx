@@ -38,9 +38,9 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           <TerrainButton onTiltView={tiltView} />
         </div>
       </div>
-      {/* NorthButton anchored in the bottom-right corner */}
+      {/* NorthButton anchored in the bottom-risght corner */}
       <div className="absolute bottom-4 right-4">
-        <NorthButton onTiltView={resetView} />
+        <NorthButton onClick={resetView} />
       </div>
     </>
   );
