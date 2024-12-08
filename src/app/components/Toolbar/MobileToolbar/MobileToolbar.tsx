@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import MenuButton from "@/app/components/Toolbar/MenuButton";
 import MaximizeButton from "../MaximizeButton";
 import OpenMissionButton from "../OpenMissionsButton";
+import SearchBar from "../SearchBar";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -16,11 +17,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
     <div className="absolute w-full h-[10%] p-4 flex flex-row items-center justify-between">
       {/* Search Bar */}
       <div className="flex items-center w-full h-full">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full h-full px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+        <SearchBar />
       </div>
 
       {/* Menu Button */}

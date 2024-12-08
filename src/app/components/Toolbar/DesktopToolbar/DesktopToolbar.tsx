@@ -7,6 +7,7 @@ import NorthButton from "@/app/components/Toolbar/NorthButton";
 import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 import Image from "next/image";
 import MaximizeButton from "../MaximizeButton";
+import SearchBar from "../SearchBar";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -22,23 +23,19 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
       {/* Avatar & Search Bar */}
       <div className="flex items-center w-1/2 gap-4">
         {/* Avatar */}
-        <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-md">
+        <div className="w-12 h-12  rounded-full flex items-center justify-center ">
           <Image
             src="/assets/phoenix-logo.svg" // Path to your image in the public/assets folder
             alt="User Avatar"
             width={100} // Adjust the dimensions as needed
             height={100}
-            className="rounded-full"
+            className="rounded-full shadow-md hover:scale-110 active:scale-95"
             priority
           />
         </div>
         {/* Search Bar */}
         <div className="flex items-center w-3/4">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full px-4 py-2 border border-rose-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
+          <SearchBar />
         </div>
         <NorthButton onClick={resetView} />
         <MaximizeButton onClick={enterFullScreen} />
