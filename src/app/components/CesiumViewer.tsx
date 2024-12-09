@@ -243,72 +243,30 @@ export const CesiumComponentRaw: FunctionComponent<{
       });
     }
   };
+
   const tiltViewToTerrain = () => {
-    console.log("Rotating camera around the center of the screen");
+    // console.log("resetTopView invoked");
+    // if (userPosition && cesiumViewer.current) {
+    //   const topDownHeight = 800;
+    //   const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
+    //     userPosition.longitude,
+    //     userPosition.latitude,
+    //     topDownHeight // Use default height if not available
+    //   );
+    //   cesiumViewer.current.camera.flyTo({
+    //     destination: userPositionCartesian,
+    //     orientation: {
+    //       heading: CesiumJs.Math.toRadians(0.0),
+    //       pitch: CesiumJs.Math.toRadians(-90),
+    //       roll: 0.0,
+    //     },
+    //     duration: 1, // Smooth transition
+    //   });
+    // }
+  };
 
-    if (cesiumViewer.current) {
-      const viewer = cesiumViewer.current;
-      const scene = viewer.scene;
-      const camera = viewer.camera;
-
-      // 1. Get window dimensions and calculate the center point
-      const cesiumContainer = cesiumContainerRef.current;
-      if (!cesiumContainer) return;
-
-      const windowWidth = cesiumContainer.offsetWidth;
-      const windowHeight = cesiumContainer.offsetHeight;
-      const windowCenter = new CesiumJs.Cartesian2(
-        windowWidth / 2,
-        windowHeight / 2
-      );
-
-      // 2. Cast a ray from the camera through the center of the screen
-      const ray = camera.getPickRay(windowCenter);
-      if (!ray) {
-        console.warn("Unable to get pick ray from camera.");
-        return; // Exit if the ray is undefined
-      }
-
-      // 3. Find intersection point with the globe (ellipsoid)
-      const ellipsoid = scene.mapProjection.ellipsoid;
-      const intersection = CesiumJs.IntersectionTests.rayEllipsoid(
-        ray,
-        ellipsoid
-      );
-
-      if (!intersection) {
-        console.warn(
-          "No intersection found between the ray and the ellipsoid."
-        );
-        return; // Exit if no intersection
-      }
-
-      const intersectionPoint = CesiumJs.Ray.getPoint(ray, intersection.start);
-      console.log(intersectionPoint);
-
-      console.log("Pivot point at intersection:", intersectionPoint);
-
-      // 4. Rotate the camera around the intersection point
-      const rotationSpeed = 0.01; // Rotation speed in radians per interval
-      const duration = 2000; // Total duration of the rotation in milliseconds
-      const intervalDuration = 10; // Interval for camera updates in ms
-
-      const totalSteps = duration / intervalDuration;
-      let currentStep = 0;
-
-      const timer = setInterval(() => {
-        if (currentStep >= totalSteps) {
-          clearInterval(timer); // Stop rotation after duration ends
-          console.log("Camera rotation completed.");
-          return;
-        }
-
-        // Rotate the camera around the intersection point
-        camera.rotate(intersectionPoint, rotationSpeed);
-
-        currentStep++;
-      }, intervalDuration);
-    }
+  const globeView = () => {
+    cesiumViewer.current?.camera.flyHome();
   };
 
   const { toggleFullScreen } = useFullScreen();
@@ -329,12 +287,17 @@ export const CesiumComponentRaw: FunctionComponent<{
           ))}
       </div>
       {isMobile ? (
-        <MobileToolbar onClick={resetTopView} onTiltView={tiltViewToTerrain} />
+        <MobileToolbar
+          onClick={resetTopView}
+          onTiltView={tiltViewToTerrain}
+          onZoomOut={globeView}
+        />
       ) : (
         <DesktopToolbar
           onClick={resetTopView}
           onAction={toggleFullScreen}
           onTiltView={tiltViewToTerrain}
+          onZoomOut={globeView}
         />
       )}
     </>

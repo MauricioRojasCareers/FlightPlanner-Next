@@ -21,6 +21,13 @@ const buttonVariants = cva(
           "bg-secondary text-transparent shadow-sm hover:bg-secondary/80 transition-all transform hover:scale-110",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        home: "bg-secondary shadow-sm hover:bg-secondary/80 transition-all transform hover:scale-110 text-white ",
+        terrain:
+          "bg-secondary shadow-sm hover:bg-secondary/80 transition-all transform hover:scale-110 text-white",
+        maximize:
+          "bg-secondary shadow-sm hover:bg-secondary/80 transition-all transform hover:scale-110 text-black",
+        globe:
+          "bg-secondary shadow-sm hover:bg-secondary/80 transition-all transform hover:scale-110 text-amber-900",
       },
       size: {
         default: "h-9 px-4 py-2",

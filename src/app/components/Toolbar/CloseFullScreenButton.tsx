@@ -17,6 +17,8 @@ const CloseFullScreenButton: FunctionComponent<ToolbarProps> = ({
       disableHoverEffect={true}
       iconText="Exit full Screen"
       buttonSize="sm"
+      showToolTip={false}
+      variant="secondary"
     />
   );
 };

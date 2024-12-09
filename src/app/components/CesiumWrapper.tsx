@@ -5,6 +5,7 @@ import React from "react";
 import type { CesiumType } from "../types/cesium";
 import Loading from "@/app/components/Loading";
 import { Toaster } from "./ui/toaster";
+import { TooltipProvider } from "./ui/tooltip";
 
 const CesiumDynamicComponent = dynamic(
   () => import("@/app/components/CesiumViewer"),
@@ -27,8 +28,10 @@ export const CesiumWrapper: React.FunctionComponent = () => {
 
   return CesiumJs ? (
     <>
-      <CesiumDynamicComponent CesiumJs={CesiumJs} />
-      <Toaster />
+      <TooltipProvider>
+        <CesiumDynamicComponent CesiumJs={CesiumJs} />
+        <Toaster />
+      </TooltipProvider>
     </>
   ) : (
     <Loading />

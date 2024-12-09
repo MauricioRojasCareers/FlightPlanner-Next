@@ -1,9 +1,6 @@
 import { FunctionComponent } from "react";
 import { Maximize } from "lucide-react";
 
-import { Button } from "@/app/components/ui/button";
-
-import { motion } from "framer-motion";
 import ToolBarButton from "./ToolBarIcon";
 
 interface ToolbarProps {
@@ -17,8 +14,10 @@ const MaximizeButton: FunctionComponent<ToolbarProps> = ({
     <ToolBarButton
       onClick={resetView}
       icon={<Maximize size={24} />}
-      reverseHoverEffect={true}
-      iconClassName="hover:scale-110 text-black"
+      variant="maximize"
+      toolTipText="Enter Full Screen"
+      buttonClassName="group"
+      iconClassName="group-hover:scale-150"
     />
   );
 };
