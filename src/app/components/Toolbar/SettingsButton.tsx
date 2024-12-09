@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Menu } from "lucide-react";
+import { Settings } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 import { motion } from "framer-motion";
@@ -23,7 +23,7 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
         onClick={resetView}
         className="active:scale-90"
       >
-        <Menu size={24} />
+        <Settings size={24} />
       </Button>
     </motion.div>
   );

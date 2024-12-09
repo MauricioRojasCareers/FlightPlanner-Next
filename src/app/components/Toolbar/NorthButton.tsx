@@ -1,8 +1,7 @@
 import { FunctionComponent } from "react";
-import { Navigation } from "lucide-react";
-import { Button } from "@/app/components/ui/button";
 
-import { motion } from "framer-motion";
+import ToolBarButton from "./ToolBarIcon";
+import { Navigation } from "lucide-react";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -12,20 +11,12 @@ const HomeButton: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
 }) => {
   return (
-    <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      <Button
-        size="icon"
-        variant="north"
-        onClick={resetView}
-        className="hover:text-white active:scale-90"
-      >
-        <Navigation size={24} className="fill-blue-500 transition-all" />
-      </Button>
-    </motion.div>
+    <ToolBarButton
+      onClick={resetView}
+      icon={<Navigation size={28} className="fill-blue-400 scale-150" />}
+      toolTipText="Your Location"
+      variant="home"
+    />
   );
 };
 

@@ -1,20 +1,23 @@
 import { FunctionComponent } from "react";
-import MenuButton from "@/app/components/Toolbar/MenuButton";
+import MenuButton from "@/app/components/Toolbar/SettingsButton";
 import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 
 import OpenMissionButton from "../OpenMissionsButton";
 import DrawButton from "../DrawButton";
 import SearchBar from "../SearchBar";
 import NorthButton from "../NorthButton";
+import ZoomOutButton from "../ZoomOutButton";
 
 interface ToolbarProps {
   onClick: () => void;
   onTiltView: () => void;
+  onZoomOut: () => void;
 }
 
 const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
   onTiltView: tiltView,
+  onZoomOut: globeView,
 }) => {
   return (
     <>
@@ -41,6 +44,10 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
       {/* NorthButton anchored in the bottom-risght corner */}
       <div className="absolute bottom-4 right-4">
         <NorthButton onClick={resetView} />
+      </div>
+      {/* NorthButton anchored in the bottom-right corner */}
+      <div className="absolute bottom-4 left-4">
+        <ZoomOutButton onClick={globeView} />
       </div>
     </>
   );

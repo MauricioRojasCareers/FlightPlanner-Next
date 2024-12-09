@@ -1,25 +1,28 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
-import MenuButton from "@/app/components/Toolbar/MenuButton";
+import MenuButton from "@/app/components/Toolbar/SettingsButton";
 import DrawButton from "@/app/components/Toolbar/DrawButton";
 import NorthButton from "@/app/components/Toolbar/NorthButton";
 import TerrainButton from "@/app/components/Toolbar/TerrainButton";
 import Image from "next/image";
-import MaximizeButton from "../MaximizeButton";
+import EnterFullScreenButton from "../EnterFullScreenButton";
 import SearchBar from "../SearchBar";
 import CloseFullScreenButton from "../CloseFullScreenButton";
 import OpenMissionButton from "../OpenMissionsButton";
+import ZoomOutButton from "../ZoomOutButton";
 
 interface ToolbarProps {
   onClick: () => void;
   onAction: () => void;
   onTiltView: () => void;
+  onZoomOut: () => void;
 }
 
 const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
   onAction: enterFullScreen,
   onTiltView: tiltView,
+  onZoomOut: globeView,
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -61,12 +64,13 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
           <SearchBar />
         </div>
         <NorthButton onClick={resetView} />
-        {/* Fullscreen Button */}
+        <ZoomOutButton onClick={globeView} />
 
+        {/* Fullscreen Button */}
         {isFullscreen ? (
           <CloseFullScreenButton onClick={handleMaximizeClick} />
         ) : (
-          <MaximizeButton onClick={enterFullScreen} /> // Enter fullscreen icon
+          <EnterFullScreenButton onClick={enterFullScreen} /> // Enter fullscreen icon
         )}
       </div>
 
