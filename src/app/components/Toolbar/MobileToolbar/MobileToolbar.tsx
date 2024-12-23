@@ -1,12 +1,12 @@
 import { FunctionComponent } from "react";
-import MenuButton from "@/app/components/Toolbar/SettingsButton";
-import TerrainButton from "@/app/components/Toolbar/TerrainButton";
+import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
+import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
 
-import OpenMissionButton from "../OpenMissionsButton";
-import DrawButton from "../DrawButton";
-import SearchBar from "../SearchBar";
-import NorthButton from "../NorthButton";
-import ZoomOutButton from "../ZoomOutButton";
+import OpenMissionButton from "../Buttons/MissionsFolder";
+import DrawButton from "../Buttons/Draw";
+import SearchBar from "../Buttons/pending/SearchBar";
+import NorthButton from "../Buttons/YourLocation";
+import ZoomOutButton from "../Buttons/GlobeView";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -37,7 +37,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 
         {/* Menu Button */}
         <div className="flex justify-end h-full gap-2 items-center ">
-          <DrawButton />
+          <DrawButton onClick={resetView} />
           <TerrainButton onTiltView={tiltView} />
         </div>
       </div>

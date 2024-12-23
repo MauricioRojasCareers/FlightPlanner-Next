@@ -1,26 +1,23 @@
 import { FunctionComponent } from "react";
-import ToolBarButton from "./ToolBarIcon";
+import ToolBarButton from "../../ToolBarButton";
 import { X } from "lucide-react";
 
 interface ToolbarProps {
   onClick: () => void;
 }
 
-const CloseFullScreenButton: FunctionComponent<ToolbarProps> = ({
+const exitFullscreen: FunctionComponent<ToolbarProps> = ({
   onClick: handleMaximizeClick,
 }) => {
   return (
     <ToolBarButton
       onClick={handleMaximizeClick}
-      icon={<X size={20} />}
-      iconClassName="text-rose-600"
-      disableHoverEffect={true}
+      icon={<X className="text-rose-800 group-hover:scale-125" />}
       iconText="Exit full Screen"
       buttonSize="sm"
-      showToolTip={false}
-      variant="secondary"
+      buttonClassName="group"
     />
   );
 };
 
-export default CloseFullScreenButton;
+export default exitFullscreen;

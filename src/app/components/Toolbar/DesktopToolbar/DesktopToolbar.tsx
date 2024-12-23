@@ -1,15 +1,15 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
-import MenuButton from "@/app/components/Toolbar/SettingsButton";
-import DrawButton from "@/app/components/Toolbar/DrawButton";
-import NorthButton from "@/app/components/Toolbar/NorthButton";
-import TerrainButton from "@/app/components/Toolbar/TerrainButton";
+import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
+import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
+import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
+import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
 import Image from "next/image";
-import EnterFullScreenButton from "../EnterFullScreenButton";
-import SearchBar from "../SearchBar";
-import CloseFullScreenButton from "../CloseFullScreenButton";
-import OpenMissionButton from "../OpenMissionsButton";
-import ZoomOutButton from "../ZoomOutButton";
+import FullScreen from "../Buttons/OnlyDesktop/FullScreen";
+import SearchBar from "../Buttons/pending/SearchBar";
+import ExitFullScreen from "../Buttons/OnlyDesktop/ExitFullScreen";
+import OpenMissionButton from "../Buttons/MissionsFolder";
+import GlobeView from "../Buttons/GlobeView";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -49,7 +49,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
       {/* Avatar & Search Bar */}
       <div className="flex items-center w-1/2 gap-4">
         {/* Avatar */}
-        <div className="w-12 h-12  rounded-full flex items-center justify-center ">
+        <div className="w-12 h-12  rounded-full flex items-center justify-center">
           <Image
             src="/assets/phoenix-logo.svg" // Path to your image in the public/assets folder
             alt="User Avatar"
@@ -63,15 +63,8 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         <div className="flex items-center w-3/4">
           <SearchBar />
         </div>
-        <NorthButton onClick={resetView} />
-        <ZoomOutButton onClick={globeView} />
-
-        {/* Fullscreen Button */}
-        {isFullscreen ? (
-          <CloseFullScreenButton onClick={handleMaximizeClick} />
-        ) : (
-          <EnterFullScreenButton onClick={enterFullScreen} /> // Enter fullscreen icon
-        )}
+        <YourLocation onClick={resetView} />
+        <GlobeView onClick={globeView} />
       </div>
 
       {/* Toolbar Buttons */}
@@ -82,6 +75,12 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         <OpenMissionButton onClick={resetView} />
 
         <MenuButton onClick={resetView} />
+        {/* Fullscreen Button */}
+        {isFullscreen ? (
+          <ExitFullScreen onClick={handleMaximizeClick} />
+        ) : (
+          <FullScreen onClick={enterFullScreen} />
+        )}
       </div>
     </div>
   );
