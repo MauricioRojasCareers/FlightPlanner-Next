@@ -7,7 +7,6 @@ import DesktopFirstTimeVisitorView from "./_FirstTimeVisitor/DesktopView/page";
 import MobileFirstTimeVisitorView from "./_FirstTimeVisitor/MobileView//page";
 import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
 import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
-// import "cesium/Build/Cesium/Widgets/widgets.css";
 
 // Import Hooks
 import { useToast } from "@/app/hooks/use-toast";
@@ -18,15 +17,11 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
-  const [locationAccessGranted, setLocationAccessGranted] =
-    useState<boolean>(true);
   const cesiumViewer = useRef<Viewer | null>(null);
   const cesiumContainerRef = useRef<HTMLDivElement>(null);
   const customCreditContainerRef = useRef<HTMLDivElement>(
     document.createElement("div")
   );
-
-  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -245,24 +240,37 @@ export const CesiumComponentRaw: FunctionComponent<{
   };
 
   const tiltViewToTerrain = () => {
-    // console.log("resetTopView invoked");
-    // if (userPosition && cesiumViewer.current) {
-    //   const topDownHeight = 800;
-    //   const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-    //     userPosition.longitude,
-    //     userPosition.latitude,
-    //     topDownHeight // Use default height if not available
-    //   );
-    //   cesiumViewer.current.camera.flyTo({
-    //     destination: userPositionCartesian,
-    //     orientation: {
-    //       heading: CesiumJs.Math.toRadians(0.0),
-    //       pitch: CesiumJs.Math.toRadians(-90),
-    //       roll: 0.0,
-    //     },
-    //     duration: 1, // Smooth transition
-    //   });
-    // }
+    if (userPosition && cesiumViewer.current) {
+      const topDownHeight = 800;
+      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
+        userPosition.longitude,
+        userPosition.latitude,
+        topDownHeight // Use default height if not available
+      );
+
+      // Offset distance to the side, for example, 1000 meters to the east
+      const offsetDistance = 800; // Distance to move the camera to the side
+
+      // Calculate the new longitude to move the camera to the side
+      const offsetLongitude = userPosition.longitude + offsetDistance / 111320;
+
+      // Create a new Cartesian3 position with the offset applied
+      const sidePositionCartesian = CesiumJs.Cartesian3.fromDegrees(
+        offsetLongitude, // New longitude after applying the offset
+        userPosition.latitude, // Same latitude as the user position
+        400 // Same height as the initial top-down view
+      );
+
+      cesiumViewer.current.camera.flyTo({
+        destination: sidePositionCartesian,
+        orientation: {
+          heading: CesiumJs.Math.toRadians(-90.0),
+          pitch: CesiumJs.Math.toRadians(0),
+          roll: 0.0,
+        },
+        duration: 1, // Smooth transition
+      });
+    }
   };
 
   const globeView = () => {

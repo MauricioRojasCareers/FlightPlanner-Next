@@ -1,13 +1,10 @@
 import { FunctionComponent } from "react";
+
+import { ButtonType } from "@/app/types/toolbar";
+import ToolBarButton from "../ToolBarButton";
 import { FolderOpen } from "lucide-react";
 
-import ToolBarButton from "../ToolBarButton";
-
-interface ToolbarProps {
-  onClick: () => void;
-}
-
-const OpenMissionButton: FunctionComponent<ToolbarProps> = ({
+const OpenMissionButton: FunctionComponent<ButtonType> = ({
   onClick: resetView,
 }) => {
   return (

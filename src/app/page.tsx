@@ -1,13 +1,16 @@
-import CesiumWrapper from "./components/CesiumWrapper";
+import CesiumWrapper from "@/app/components/CesiumWrapper";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex flex-col">
-      {/* <Navbar /> */}
-      <CesiumWrapper />
-      {/* <footer className="font-extralight text-xs p-4 absolute bottom-0 flex w-full  justify-center items-center text-white md:hidden">
-        © Phoenix Lidar Systems
-      </footer> */}
+    <main className="flex justify-center h-screen items-center">
+      {/* <CesiumWrapper /> */}
+      <Link
+        href="cesium"
+        className="text-white hover:scale-125 active:scale-95 transition-transform duration-300 ease-in-out "
+      >
+        Open FlightPlanner
+      </Link>
     </main>
   );
 }

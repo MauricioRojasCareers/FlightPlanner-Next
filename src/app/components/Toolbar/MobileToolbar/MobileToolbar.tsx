@@ -5,8 +5,8 @@ import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
 import OpenMissionButton from "../Buttons/MissionsFolder";
 import DrawButton from "../Buttons/Draw";
 import SearchBar from "../Buttons/pending/SearchBar";
-import NorthButton from "../Buttons/YourLocation";
-import ZoomOutButton from "../Buttons/GlobeView";
+import YourLocation from "../Buttons/YourLocation";
+import GlobeView from "../Buttons/GlobeView";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -38,16 +38,16 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
         {/* Menu Button */}
         <div className="flex justify-end h-full gap-2 items-center ">
           <DrawButton onClick={resetView} />
-          <TerrainButton onTiltView={tiltView} />
+          <TerrainButton onClick={tiltView} />
         </div>
       </div>
       {/* NorthButton anchored in the bottom-risght corner */}
       <div className="absolute bottom-4 right-4">
-        <NorthButton onClick={resetView} />
+        <YourLocation onClick={resetView} />
       </div>
       {/* NorthButton anchored in the bottom-right corner */}
       <div className="absolute bottom-4 left-4">
-        <ZoomOutButton onClick={globeView} />
+        <GlobeView onClick={globeView} />
       </div>
     </>
   );

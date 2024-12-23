@@ -1,19 +1,16 @@
 import { FunctionComponent } from "react";
+
+import { ButtonType } from "@/app/types/toolbar";
+import ToolBarButton from "../../ToolBarButton";
 import { Maximize } from "lucide-react";
 
-import ToolBarButton from "../../ToolBarButton";
-
-interface ToolbarProps {
-  onClick: () => void;
-}
-
-const FullScreen: FunctionComponent<ToolbarProps> = ({
-  onClick: resetView,
-}) => {
+const FullScreen: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
   return (
     <ToolBarButton
       onClick={resetView}
-      icon={<Maximize className="group-hover:scale-125" />}
+      icon={
+        <Maximize className="group-hover:scale-125 group-hover:text-rose-800" />
+      }
       buttonClassName="group"
     />
   );

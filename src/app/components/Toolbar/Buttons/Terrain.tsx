@@ -1,15 +1,10 @@
 import { FunctionComponent } from "react";
+
+import { ButtonType } from "@/app/types/toolbar";
+import ToolBarButton from "../ToolBarButton";
 import { Mountain } from "lucide-react";
 
-import ToolBarButton from "../ToolBarButton";
-
-interface ToolbarProps {
-  onTiltView: () => void;
-}
-
-const HomeButton: FunctionComponent<ToolbarProps> = ({
-  onTiltView: tiltView,
-}) => {
+const HomeButton: FunctionComponent<ButtonType> = ({ onClick: tiltView }) => {
   return (
     <ToolBarButton
       onClick={tiltView}

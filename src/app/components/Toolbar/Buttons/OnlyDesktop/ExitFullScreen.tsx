@@ -1,12 +1,10 @@
 import { FunctionComponent } from "react";
+
+import { ButtonType } from "@/app/types/toolbar";
 import ToolBarButton from "../../ToolBarButton";
 import { X } from "lucide-react";
 
-interface ToolbarProps {
-  onClick: () => void;
-}
-
-const exitFullscreen: FunctionComponent<ToolbarProps> = ({
+const exitFullscreen: FunctionComponent<ButtonType> = ({
   onClick: handleMaximizeClick,
 }) => {
   return (

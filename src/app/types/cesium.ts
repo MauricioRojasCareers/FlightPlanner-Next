@@ -1,1 +1,1 @@
-export type CesiumType = typeof import('cesium');
+export type CesiumType = typeof import("cesium");

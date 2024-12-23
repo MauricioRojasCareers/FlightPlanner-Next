@@ -10,6 +10,7 @@ import SearchBar from "../Buttons/pending/SearchBar";
 import ExitFullScreen from "../Buttons/OnlyDesktop/ExitFullScreen";
 import OpenMissionButton from "../Buttons/MissionsFolder";
 import GlobeView from "../Buttons/GlobeView";
+import Link from "next/link";
 
 interface ToolbarProps {
   onClick: () => void;
@@ -45,44 +46,58 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   };
 
   return (
-    <div className="absolute top-0 left-0 w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
-      {/* Avatar & Search Bar */}
-      <div className="flex items-center w-1/2 gap-4">
-        {/* Avatar */}
-        <div className="w-12 h-12  rounded-full flex items-center justify-center">
-          <Image
-            src="/assets/phoenix-logo.svg" // Path to your image in the public/assets folder
-            alt="User Avatar"
-            width={100} // Adjust the dimensions as needed
-            height={100}
-            className="rounded-full shadow-md hover:scale-110 active:scale-95"
-            priority
-          />
+    <>
+      <div className="absolute top-0 left-0 w-full h-[10%] md:h-[20%] lg:h-[10%] p-4 flex flex-row items-center justify-between">
+        {/* Avatar & Search Bar */}
+        <div className="flex items-center w-1/2 gap-4">
+          {/* Avatar */}
+          <Link
+            href="/"
+            className="w-12 h-12  rounded-full flex items-center justify-center"
+          >
+            <Image
+              src="/assets/phoenix-logo.svg" // Path to your image in the public/assets folder
+              alt="User Avatar"
+              width={100} // Adjust the dimensions as needed
+              height={100}
+              className="rounded-full shadow-md hover:scale-110 active:scale-95"
+              priority
+            />
+          </Link>
+          {/* Search Bar */}
+          <div className="flex items-center w-3/4">
+            <SearchBar />
+          </div>
+          {/* <YourLocation onClick={resetView} />
+          <GlobeView onClick={globeView} /> */}
         </div>
-        {/* Search Bar */}
-        <div className="flex items-center w-3/4">
-          <SearchBar />
+
+        {/* Toolbar Buttons */}
+        <div className="flex flex-row gap-4 justify-end">
+          {/* <HomeButton onClick={resetView} /> */}
+          <TerrainButton onClick={tiltView} />
+          <DrawButton onClick={resetView} />
+          <OpenMissionButton onClick={resetView} />
+
+          <MenuButton onClick={resetView} />
+          {/* Fullscreen Button */}
+          {isFullscreen ? (
+            <ExitFullScreen onClick={handleMaximizeClick} />
+          ) : (
+            <FullScreen onClick={enterFullScreen} />
+          )}
         </div>
+      </div>
+
+      {/* NorthButton anchored in the bottom-risght corner */}
+      <div className="absolute bottom-4 right-4">
         <YourLocation onClick={resetView} />
+      </div>
+      {/* NorthButton anchored in the bottom-right corner */}
+      <div className="absolute bottom-4 left-4">
         <GlobeView onClick={globeView} />
       </div>
-
-      {/* Toolbar Buttons */}
-      <div className="flex flex-row gap-4 justify-end">
-        {/* <HomeButton onClick={resetView} /> */}
-        <TerrainButton onTiltView={tiltView} />
-        <DrawButton onClick={resetView} />
-        <OpenMissionButton onClick={resetView} />
-
-        <MenuButton onClick={resetView} />
-        {/* Fullscreen Button */}
-        {isFullscreen ? (
-          <ExitFullScreen onClick={handleMaximizeClick} />
-        ) : (
-          <FullScreen onClick={enterFullScreen} />
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

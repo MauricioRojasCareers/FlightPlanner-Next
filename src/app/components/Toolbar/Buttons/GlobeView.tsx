@@ -1,13 +1,9 @@
 import { FunctionComponent } from "react";
+import { ButtonType } from "@/app/types/toolbar";
+import ToolBarButton from "../ToolBarButton";
 import { Globe } from "lucide-react";
 
-import ToolBarButton from "../ToolBarButton";
-
-interface ToolbarProps {
-  onClick: () => void;
-}
-
-const ZoomOutButton: FunctionComponent<ToolbarProps> = ({
+const ZoomOutButton: FunctionComponent<ButtonType> = ({
   onClick: globeView,
 }) => {
   return (
@@ -16,9 +12,13 @@ const ZoomOutButton: FunctionComponent<ToolbarProps> = ({
       icon={
         <Globe
           className="
-          text-green-700 fill-blue-400
-            group-hover:animate-pulse 
-            "
+            text-blue-600 fill-green-500
+            group-hover:animate-pulse
+            group-hover:scale-110 
+            group-active:scale-90
+            transition-transform duration-300 ease-in-out
+            drop-shadow-lg
+          "
         />
       }
       buttonClassName="group"

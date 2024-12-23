@@ -1,15 +1,10 @@
 import { FunctionComponent } from "react";
+
+import { ButtonType } from "@/app/types/toolbar";
+import ToolBarButton from "../ToolBarButton";
 import { Settings } from "lucide-react";
 
-import ToolBarButton from "../ToolBarButton";
-
-interface ToolbarProps {
-  onClick: () => void;
-}
-
-const HomeButton: FunctionComponent<ToolbarProps> = ({
-  onClick: resetView,
-}) => {
+const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
   return (
     <ToolBarButton
       onClick={resetView}
