@@ -18,5 +18,3 @@
 <div class="flex justify-center items-center">
   <img src="/public/UseCase.gif" alt="Use Case Overview" width="100%" height="100%" />
 </div>
-
-untracked files
