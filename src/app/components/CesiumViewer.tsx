@@ -13,6 +13,11 @@ import { useToast } from "@/app/hooks/use-toast";
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
 import useFullScreen from "../hooks/useFullScreen";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import {
+  resetTopView,
+  flyToPosition,
+  initializeCameraView,
+} from "@/app/lib/cesiumHelpers";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -34,6 +39,7 @@ export const CesiumComponentRaw: FunctionComponent<{
   >("locationPermission", null);
 
   const { toast } = useToast();
+  const { toggleFullScreen } = useFullScreen();
 
   // Disable page scrolling on touch devices
   useEffect(() => {
@@ -189,19 +195,10 @@ export const CesiumComponentRaw: FunctionComponent<{
         }
       );
 
-      // Set camera to the user's position
-      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-        userPosition.longitude,
-        userPosition.latitude,
-        1000 // Altitude (in meters)
-      );
-      cesiumViewer.current.camera.setView({
-        destination: userPositionCartesian,
-        orientation: {
-          heading: CesiumJs.Math.toRadians(0.0), // Camera facing north
-          pitch: CesiumJs.Math.toRadians(-90), // Look slightly down
-          roll: 0.0, // No roll
-        },
+      initializeCameraView({
+        CesiumJs,
+        cesiumViewer: cesiumViewer.current,
+        userPosition,
       });
 
       return () => {
@@ -217,67 +214,59 @@ export const CesiumComponentRaw: FunctionComponent<{
     CesiumJs,
   });
 
-  const resetTopView = () => {
-    console.log("resetTopView invoked");
+  const handleResetTopView = () => {
     if (userPosition && cesiumViewer.current) {
-      const topDownHeight = 800;
-      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-        userPosition.longitude,
-        userPosition.latitude,
-        topDownHeight // Use default height if not available
-      );
-
-      cesiumViewer.current.camera.flyTo({
-        destination: userPositionCartesian,
-        orientation: {
-          heading: CesiumJs.Math.toRadians(0.0),
-          pitch: CesiumJs.Math.toRadians(-90),
-          roll: 0.0,
-        },
-        duration: 1, // Smooth transition
+      resetTopView({
+        CesiumJs,
+        cesiumViewer: cesiumViewer.current,
+        userPosition,
       });
     }
   };
 
-  const tiltViewToTerrain = () => {
+  const handleTilt = () => {
+    // Depends on user's position (which is either given by user or Phoenix HQ)
+    // Also depends on the cesium viewer existing
     if (userPosition && cesiumViewer.current) {
-      const topDownHeight = 800;
-      const userPositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-        userPosition.longitude,
-        userPosition.latitude,
-        topDownHeight // Use default height if not available
-      );
-
       // Offset distance to the side, for example, 1000 meters to the east
-      const offsetDistance = 800; // Distance to move the camera to the side
-
+      const offsetDistance = 1000;
       // Calculate the new longitude to move the camera to the side
-      const offsetLongitude = userPosition.longitude + offsetDistance / 111320;
-
-      // Create a new Cartesian3 position with the offset applied
-      const sidePositionCartesian = CesiumJs.Cartesian3.fromDegrees(
-        offsetLongitude, // New longitude after applying the offset
-        userPosition.latitude, // Same latitude as the user position
-        400 // Same height as the initial top-down view
-      );
-
-      cesiumViewer.current.camera.flyTo({
-        destination: sidePositionCartesian,
-        orientation: {
-          heading: CesiumJs.Math.toRadians(-90.0),
-          pitch: CesiumJs.Math.toRadians(0),
-          roll: 0.0,
-        },
-        duration: 1, // Smooth transition
+      const offsetLongitude = userPosition.latitude - offsetDistance / 111320;
+      // Get the offset position to move the camera to
+      const sidePosition: UserPosition = {
+        latitude: offsetLongitude, // Same latitude
+        longitude: userPosition.longitude, // New longitude after applying the offset
+      };
+      // Fly to the offset poisition that should give us a sideview looking north
+      flyToPosition({
+        CesiumJs,
+        cesiumViewer: cesiumViewer.current,
+        position: sidePosition,
+        height: 200,
+        heading: 0,
+        pitch: -10,
+        duration: 3,
       });
     }
   };
 
-  const globeView = () => {
+  const handleGlobeView = () => {
     cesiumViewer.current?.camera.flyHome();
   };
 
-  const { toggleFullScreen } = useFullScreen();
+  const handleDrawMission = () => {
+    if (userPosition && cesiumViewer.current) {
+      flyToPosition({
+        CesiumJs: CesiumJs,
+        cesiumViewer: cesiumViewer.current,
+        position: userPosition,
+        height: 800,
+        heading: 0,
+        pitch: -90,
+        duration: 2,
+      });
+    }
+  };
 
   return (
     <>
@@ -296,16 +285,18 @@ export const CesiumComponentRaw: FunctionComponent<{
       </div>
       {isMobile ? (
         <MobileToolbar
-          onClick={resetTopView}
-          onTiltView={tiltViewToTerrain}
-          onZoomOut={globeView}
+          onClick={handleResetTopView}
+          onTiltView={handleTilt}
+          onZoomOut={handleGlobeView}
+          onDrawMission={handleDrawMission}
         />
       ) : (
         <DesktopToolbar
-          onClick={resetTopView}
+          onClick={handleResetTopView}
           onAction={toggleFullScreen}
-          onTiltView={tiltViewToTerrain}
-          onZoomOut={globeView}
+          onTiltView={handleTilt}
+          onZoomOut={handleGlobeView}
+          onDrawMission={handleDrawMission}
         />
       )}
     </>

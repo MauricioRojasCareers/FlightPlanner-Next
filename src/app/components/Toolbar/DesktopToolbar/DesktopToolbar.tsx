@@ -17,6 +17,7 @@ interface ToolbarProps {
   onAction: () => void;
   onTiltView: () => void;
   onZoomOut: () => void;
+  onDrawMission: () => void;
 }
 
 const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
@@ -24,6 +25,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
   onAction: enterFullScreen,
   onTiltView: tiltView,
   onZoomOut: globeView,
+  onDrawMission: drawMission,
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -76,7 +78,7 @@ const DesktopToolbar: FunctionComponent<ToolbarProps> = ({
         <div className="flex flex-row gap-4 justify-end">
           {/* <HomeButton onClick={resetView} /> */}
           <TerrainButton onClick={tiltView} />
-          <DrawButton onClick={resetView} />
+          <DrawButton onClick={drawMission} />
           <OpenMissionButton onClick={resetView} />
 
           <MenuButton onClick={resetView} />

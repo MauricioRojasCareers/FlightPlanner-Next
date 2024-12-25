@@ -12,12 +12,14 @@ interface ToolbarProps {
   onClick: () => void;
   onTiltView: () => void;
   onZoomOut: () => void;
+  onDrawMission: () => void;
 }
 
 const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onClick: resetView,
   onTiltView: tiltView,
   onZoomOut: globeView,
+  onDrawMission: drawMission,
 }) => {
   return (
     <>
@@ -37,7 +39,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 
         {/* Menu Button */}
         <div className="flex justify-end h-full gap-2 items-center ">
-          <DrawButton onClick={resetView} />
+          <DrawButton onClick={drawMission} />
           <TerrainButton onClick={tiltView} />
         </div>
       </div>

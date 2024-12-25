@@ -6,7 +6,7 @@ export default function Home() {
     <main className="flex justify-center h-screen items-center">
       {/* <CesiumWrapper /> */}
       <Link
-        href="cesium"
+        href="draw-missions"
         className="text-white hover:scale-125 active:scale-95 transition-transform duration-300 ease-in-out "
       >
         Open FlightPlanner

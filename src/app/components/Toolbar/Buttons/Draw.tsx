@@ -4,10 +4,12 @@ import { ButtonType } from "@/app/types/toolbar";
 import ToolBarButton from "../ToolBarButton";
 import { Route } from "lucide-react";
 
-const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
+const HomeButton: FunctionComponent<ButtonType> = ({
+  onClick: drawMission,
+}) => {
   return (
     <ToolBarButton
-      onClick={resetView}
+      onClick={drawMission}
       icon={
         <Route
           className="
