@@ -22,7 +22,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   return (
     <>
       <div className="w-full h-screen bg-red-300 flex flex-row relative">
-        <div className="bg-yellow-200 w-full justify-between gap-2 flex absolute p-4 h-full flex-col">
+        <div className="bg-yellow-200 w-full justify-between gap-2 flex absolute p-4 min-h-screen flex-col">
           <div className="bg-blue-300 flex">
             <MenuButton
               onClick={() => {
