@@ -39,7 +39,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           <TerrainButton onClick={tiltView} />
         </div>
       </div>
-      <div className="bg-orange-400 p-4 absolute bottom-0 w-full flex justify-between">
+      <div className="bg-orange-400 p-4 absolute bottom-0 h-[90%] w-full flex justify-between">
         {/* NorthButton anchored in the bottom-risght corner */}
         <div className="">
           <YourLocation onClick={resetView} />
