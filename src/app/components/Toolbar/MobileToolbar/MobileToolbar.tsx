@@ -21,8 +21,8 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <>
-      <div className="w-full h-svh flex flex-row absolute z-50 ">
-        <div className=" w-full h-svh justify-between absolute gap-2 flex p-4 flex-col z-50">
+      <div className="w-full h-svh flex flex-row absolute">
+        <div className=" w-full h-svh justify-between gap-2 flex p-4 flex-col z-50">
           {/* Top Section */}
           <div className="flex items-center gap-2">
             <MenuButton onClick={() => resetView()} />

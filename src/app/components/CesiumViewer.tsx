@@ -284,24 +284,23 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   return (
     <>
-      <div
-        ref={cesiumContainerRef}
-        id="cesiumContainer"
-        className="absolute md:relative lg:relative"
-      />
       {isMobile ? (
-        <MobileToolbar
-          onClick={resetTopView}
-          onTiltView={tiltViewToTerrain}
-          onZoomOut={globeView}
-        />
+        <div ref={cesiumContainerRef} id="cesiumContainer" className="relative">
+          <MobileToolbar
+            onClick={resetTopView}
+            onTiltView={tiltViewToTerrain}
+            onZoomOut={globeView}
+          />
+        </div>
       ) : (
-        <DesktopToolbar
-          onClick={resetTopView}
-          onAction={toggleFullScreen}
-          onTiltView={tiltViewToTerrain}
-          onZoomOut={globeView}
-        />
+        <div ref={cesiumContainerRef} id="cesiumContainer" className="relative">
+          <DesktopToolbar
+            onClick={resetTopView}
+            onAction={toggleFullScreen}
+            onTiltView={tiltViewToTerrain}
+            onZoomOut={globeView}
+          />
+        </div>
       )}
     </>
   );
