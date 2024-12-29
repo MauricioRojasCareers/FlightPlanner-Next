@@ -15,6 +15,7 @@ import { useToast } from "@/app/hooks/use-toast";
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
 import useFullScreen from "../hooks/useFullScreen";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useViewerStore } from "@/store/viewerStore";
 
 export const CesiumComponentRaw: FunctionComponent<{
   CesiumJs: CesiumType;
@@ -36,6 +37,27 @@ export const CesiumComponentRaw: FunctionComponent<{
   >("locationPermission", null);
 
   const { toast } = useToast();
+  const triggerAction = useViewerStore((state: any) => state.triggerAction);
+  const setTriggerAction = useViewerStore(
+    (state: any) => state.setTriggerAction
+  );
+
+  useEffect(() => {
+    if (triggerAction && cesiumViewer.current) {
+      const viewer = cesiumViewer.current;
+
+      if (triggerAction === "moveCamera") {
+        viewer.camera.flyTo({
+          destination: CesiumJs.Cartesian3.fromDegrees(-123.074, 44.05, 3000),
+        });
+      } else if (triggerAction === "zoomOut") {
+        viewer.camera.zoomOut();
+      }
+
+      // Reset the action to avoid repeated execution
+      setTriggerAction(null);
+    }
+  }, [triggerAction, setTriggerAction]);
 
   // Disable page scrolling on touch devices
   useEffect(() => {
