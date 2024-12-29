@@ -18,3 +18,9 @@
 <div class="flex justify-center items-center">
   <img src="/public/UseCase.gif" alt="Use Case Overview" width="100%" height="100%" />
 </div>
+
+## Fully Responsive
+
+<div class="flex justify-center items-center">
+  <img src="/public/Thumbnail Mobile.gif" alt="Use Case Overview" width="100%" height="100%" />
+</div>
