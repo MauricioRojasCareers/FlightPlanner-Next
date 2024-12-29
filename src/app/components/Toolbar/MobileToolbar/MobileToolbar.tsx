@@ -19,36 +19,34 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onTiltView: tiltView,
   onZoomOut: globeView,
 }) => {
-  return (
-    <>
-      <div className="w-full h-svh flex flex-row bg-red-300 absolute">
-        <div className=" w-full h-svh justify-between gap-2 flex p-4 flex-col z-50">
-          {/* Top Section */}
-          <div className="flex items-center gap-2">
-            <MenuButton onClick={() => resetView()} />
-            <OpenMissionButton onClick={resetView} />
-            <div className="flex items-center w-full">
-              <SearchBar />
-            </div>
-            <div className="flex justify-end h-full gap-2 items-center">
-              <DrawButton onClick={resetView} />
-              <TerrainButton onClick={tiltView} />
-            </div>
-          </div>
-
-          {/* Bottom Section */}
-          <div className=" flex justify-between">
-            <div>
-              <YourLocation onClick={resetView} />
-            </div>
-            <div>
-              <GlobeView onClick={globeView} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  return <></>;
 };
 
 export default MobileToolbar;
+
+// {/* <div className="w-full h-svh flex flex-row bg-red-300 absolute">
+// <div className=" w-full h-svh justify-between gap-2 flex p-4 flex-col z-50">
+//   {/* Top Section */}
+//   <div className="flex items-center gap-2">
+//     <MenuButton onClick={() => resetView()} />
+//     <OpenMissionButton onClick={resetView} />
+//     <div className="flex items-center w-full">
+//       <SearchBar />
+//     </div>
+//     <div className="flex justify-end h-full gap-2 items-center">
+//       <DrawButton onClick={resetView} />
+//       <TerrainButton onClick={tiltView} />
+//     </div>
+//   </div>
+
+//   {/* Bottom Section */}
+//   <div className="flex justify-between">
+//     <div>
+//       <YourLocation onClick={resetView} />
+//     </div>
+//     <div>
+//       <GlobeView onClick={globeView} />
+//     </div>
+//   </div>
+// </div>
+// </div> */}

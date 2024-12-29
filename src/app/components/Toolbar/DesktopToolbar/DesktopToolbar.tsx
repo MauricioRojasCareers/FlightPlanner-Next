@@ -1,3 +1,4 @@
+"use client";
 import { FunctionComponent, useEffect, useState } from "react";
 
 import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
