@@ -284,16 +284,6 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   return (
     <>
-      <div ref={cesiumContainerRef} id="cesiumContainer" className="relative">
-        {/* Conditionally render First Time Visitor views */}
-        {locationPermission === null &&
-          (isMobile ? (
-            <MobileFirstTimeVisitorView />
-          ) : (
-            <DesktopFirstTimeVisitorView />
-          ))}
-      </div>
-
       {isMobile ? (
         <MobileToolbar
           onClick={resetTopView}
@@ -314,16 +304,16 @@ export const CesiumComponentRaw: FunctionComponent<{
 
 export default CesiumComponentRaw;
 
-// <div
-//         ref={cesiumContainerRef}
-//         id="cesiumContainer"
-//         className="relative w-screen h-screen md:overflow-hidden"
-//       >
-//         {/* Conditionally render First Time Visitor views */}
-//         {locationPermission === null &&
-//           (isMobile ? (
-//             <MobileFirstTimeVisitorView />
-//           ) : (
-//             <DesktopFirstTimeVisitorView />
-//           ))}
-//       </div>
+{
+  /* <div ref={cesiumContainerRef} id="cesiumContainer" className="relative"> */
+}
+{
+  /* Conditionally render First Time Visitor views */
+}
+// {locationPermission === null &&
+//   (isMobile ? (
+//     <MobileFirstTimeVisitorView />
+//   ) : (
+//     <DesktopFirstTimeVisitorView />
+//   ))}
+// </div>

@@ -21,11 +21,9 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <>
-      <button>Click Me</button>
-      <div className="absolute top-0 left-0 w-full h-[10%] p-4 flex flex-row items-center justify-between gap-2">
+      <div className="absolute top-0 left-0 w-full h-[10%] p-4 flex flex-row items-center justify-between gap-2 bg-white">
         <MenuButton
           onClick={() => {
-            console.log("Reset View button clicked");
             resetView();
           }}
         />
@@ -41,13 +39,15 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           <TerrainButton onClick={tiltView} />
         </div>
       </div>
-      {/* NorthButton anchored in the bottom-risght corner */}
-      <div className="absolute bottom-20 right-20">
-        <YourLocation onClick={resetView} />
-      </div>
-      {/* NorthButton anchored in the bottom-right corner */}
-      <div className="absolute bottom-20 left-20">
-        <GlobeView onClick={globeView} />
+      <div className="bg-orange-400 p-4 absolute bottom-0 w-full flex justify-between">
+        {/* NorthButton anchored in the bottom-risght corner */}
+        <div className="">
+          <YourLocation onClick={resetView} />
+        </div>
+        {/* NorthButton anchored in the bottom-right corner */}
+        <div className="">
+          <GlobeView onClick={globeView} />
+        </div>
       </div>
     </>
   );
