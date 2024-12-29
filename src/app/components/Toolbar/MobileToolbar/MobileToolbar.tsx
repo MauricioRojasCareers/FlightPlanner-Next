@@ -20,7 +20,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onZoomOut: globeView,
 }) => {
   return (
-    <>
+    <div className="min-h-screen">
       <div className="absolute top-0 left-0 w-full h-[10%] p-4 flex flex-row items-center justify-between gap-2 bg-white">
         <MenuButton
           onClick={() => {
@@ -49,7 +49,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           <GlobeView onClick={globeView} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
