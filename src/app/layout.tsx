@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
   title: "FlightPlanner Next-Generation",
@@ -25,7 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="w-full h-[100vh]">
+            <div className="p-4 absolute z-50">
+              <SidebarTrigger className="bg-white" />
+            </div>
+            {children}
+          </main>
+        </SidebarProvider>
+      </body>
     </html>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { FunctionComponent, useEffect, useRef, useState } from "react";
 import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
@@ -132,6 +134,7 @@ export const CesiumComponentRaw: FunctionComponent<{
         sceneModePicker: false,
         navigationHelpButton: false,
         animation: false,
+        selectionIndicator: false,
       });
 
       // Check when terrain has loaded
@@ -281,11 +284,7 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   return (
     <>
-      <div
-        ref={cesiumContainerRef}
-        id="cesiumContainer"
-        className="relative w-screen h-screen md:overflow-hidden"
-      >
+      <div ref={cesiumContainerRef} id="cesiumContainer" className="relative">
         {/* Conditionally render First Time Visitor views */}
         {locationPermission === null &&
           (isMobile ? (
@@ -294,7 +293,8 @@ export const CesiumComponentRaw: FunctionComponent<{
             <DesktopFirstTimeVisitorView />
           ))}
       </div>
-      {isMobile ? (
+
+      {/* {isMobile ? (
         <MobileToolbar
           onClick={resetTopView}
           onTiltView={tiltViewToTerrain}
@@ -307,9 +307,23 @@ export const CesiumComponentRaw: FunctionComponent<{
           onTiltView={tiltViewToTerrain}
           onZoomOut={globeView}
         />
-      )}
+      )} */}
     </>
   );
 };
 
 export default CesiumComponentRaw;
+
+// <div
+//         ref={cesiumContainerRef}
+//         id="cesiumContainer"
+//         className="relative w-screen h-screen md:overflow-hidden"
+//       >
+//         {/* Conditionally render First Time Visitor views */}
+//         {locationPermission === null &&
+//           (isMobile ? (
+//             <MobileFirstTimeVisitorView />
+//           ) : (
+//             <DesktopFirstTimeVisitorView />
+//           ))}
+//       </div>

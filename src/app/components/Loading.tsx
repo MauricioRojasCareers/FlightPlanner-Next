@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const LoadingSpinner = () => (
   <>
-    <div
+    {/* <div
       style={{
         position: "relative",
         backgroundColor: "black",
@@ -78,6 +78,12 @@ const LoadingSpinner = () => (
         animation: spin3d 3s linear infinite;
       }
     `}</style>
+    </div> */}
+
+    <div className="text-black">
+      <h1 className="bg-yellow-300 h-[100vh] flex items-center justify-center">
+        Loading...
+      </h1>
     </div>
   </>
 );
