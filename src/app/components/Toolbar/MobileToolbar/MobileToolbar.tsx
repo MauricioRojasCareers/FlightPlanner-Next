@@ -42,11 +42,11 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
         </div>
       </div>
       {/* NorthButton anchored in the bottom-risght corner */}
-      <div className="absolute bottom-8 right-8">
+      <div className="absolute bottom-20 right-20">
         <YourLocation onClick={resetView} />
       </div>
       {/* NorthButton anchored in the bottom-right corner */}
-      <div className="absolute bottom-8 left-8">
+      <div className="absolute bottom-20 left-20">
         <GlobeView onClick={globeView} />
       </div>
     </>
