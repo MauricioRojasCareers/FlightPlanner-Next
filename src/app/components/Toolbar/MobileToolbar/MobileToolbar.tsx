@@ -21,33 +21,27 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <>
-      <div className="w-full h-screen flex flex-row relative">
-        <div className="bg-yellow-200 w-full h-screen justify-between gap-2 flex absolute p-4  flex-col">
+      <div className="w-full h-screen bg-red-300 flex flex-row relative">
+        <div className="bg-yellow-200 w-full h-screen justify-between gap-2 flex p-4 flex-col">
+          {/* Top Section */}
           <div className="bg-blue-300 flex">
-            <MenuButton
-              onClick={() => {
-                resetView();
-              }}
-            />
+            <MenuButton onClick={() => resetView()} />
             <OpenMissionButton onClick={resetView} />
-            {/* Search Bar */}
             <div className="flex items-center w-full">
               <SearchBar />
             </div>
-
-            {/* Menu Button */}
-            <div className="flex justify-end h-full gap-2 items-center ">
+            <div className="flex justify-end h-full gap-2 items-center">
               <DrawButton onClick={resetView} />
               <TerrainButton onClick={tiltView} />
             </div>
           </div>
+
+          {/* Bottom Section */}
           <div className="bg-white flex justify-between">
-            {/* NorthButton anchored in the bottom-risght corner */}
-            <div className="">
+            <div>
               <YourLocation onClick={resetView} />
             </div>
-            {/* NorthButton anchored in the bottom-right corner */}
-            <div className="">
+            <div>
               <GlobeView onClick={globeView} />
             </div>
           </div>
