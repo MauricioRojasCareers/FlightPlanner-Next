@@ -30,7 +30,7 @@ export default function RootLayout({
       <body>
         <SidebarProvider>
           <AppSidebar />
-          <main className="w-full md:h-[100vh] lg:h-[100vh] h-full relative">
+          <main className="w-full md:h-svh lg:h-[100vh] h-full relative">
             <header className="absolute top-0 left-0 z-50 w-full p-2">
               {/* <SidebarTrigger variant="secondary" /> */}
             </header>
