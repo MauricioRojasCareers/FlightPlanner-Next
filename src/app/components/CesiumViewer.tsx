@@ -284,6 +284,11 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   return (
     <>
+      <div
+        ref={cesiumContainerRef}
+        id="cesiumContainer"
+        className="absolute md:relative lg:relative"
+      />
       {isMobile ? (
         <MobileToolbar
           onClick={resetTopView}
@@ -304,12 +309,7 @@ export const CesiumComponentRaw: FunctionComponent<{
 
 export default CesiumComponentRaw;
 
-{
-  /* <div ref={cesiumContainerRef} id="cesiumContainer" className="relative"> */
-}
-{
-  /* Conditionally render First Time Visitor views */
-}
+//   <div ref={cesiumContainerRef} id="cesiumContainer" className="relative" >
 // {locationPermission === null &&
 //   (isMobile ? (
 //     <MobileFirstTimeVisitorView />

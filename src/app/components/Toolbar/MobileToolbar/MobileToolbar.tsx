@@ -21,10 +21,10 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <>
-      <div className="w-full h-svh bg-red-300 flex flex-row relative">
-        <div className="bg-yellow-200 w-full h-svh justify-between gap-2 flex p-4 flex-col">
+      <div className="w-full h-svh flex flex-row absolute z-50 ">
+        <div className=" w-full h-svh justify-between absolute gap-2 flex p-4 flex-col z-50">
           {/* Top Section */}
-          <div className="bg-blue-300 flex">
+          <div className="flex items-center gap-2">
             <MenuButton onClick={() => resetView()} />
             <OpenMissionButton onClick={resetView} />
             <div className="flex items-center w-full">
@@ -37,7 +37,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           </div>
 
           {/* Bottom Section */}
-          <div className="bg-white flex justify-between">
+          <div className=" flex justify-between">
             <div>
               <YourLocation onClick={resetView} />
             </div>
