@@ -294,7 +294,7 @@ export const CesiumComponentRaw: FunctionComponent<{
           ))}
       </div>
 
-      {/* {isMobile ? (
+      {isMobile ? (
         <MobileToolbar
           onClick={resetTopView}
           onTiltView={tiltViewToTerrain}
@@ -307,7 +307,7 @@ export const CesiumComponentRaw: FunctionComponent<{
           onTiltView={tiltViewToTerrain}
           onZoomOut={globeView}
         />
-      )} */}
+      )}
     </>
   );
 };
