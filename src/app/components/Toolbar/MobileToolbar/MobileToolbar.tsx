@@ -21,7 +21,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
 }) => {
   return (
     <>
-      <div className="w-full h-[100%] flex flex-row relative">
+      <div className="w-full min-h-screen flex flex-row relative">
         <div className="bg-yellow-200 w-full justify-between gap-2 flex absolute p-4">
           <MenuButton
             onClick={() => {
@@ -40,15 +40,15 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
             <TerrainButton onClick={tiltView} />
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-0 flex w-full justify-between p-4">
-        {/* NorthButton anchored in the bottom-risght corner */}
-        <div className="">
-          <YourLocation onClick={resetView} />
-        </div>
-        {/* NorthButton anchored in the bottom-right corner */}
-        <div className="">
-          <GlobeView onClick={globeView} />
+        <div className="absolute bottom-0 flex w-full justify-between p-4 mb-20">
+          {/* NorthButton anchored in the bottom-risght corner */}
+          <div className="">
+            <YourLocation onClick={resetView} />
+          </div>
+          {/* NorthButton anchored in the bottom-right corner */}
+          <div className="">
+            <GlobeView onClick={globeView} />
+          </div>
         </div>
       </div>
     </>
