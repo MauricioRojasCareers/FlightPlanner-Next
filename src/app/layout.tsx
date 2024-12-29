@@ -32,7 +32,7 @@ export default function RootLayout({
       <body>
         <SidebarProvider>
           <AppSidebar />
-          <main className="w-full md:h-svh lg:h-[100vh] h-full relative">
+          <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
             <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
               {/* <div className="bg-rose-300 pointer-events-auto">
                 <p>Hello World</p>
