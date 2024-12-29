@@ -20,26 +20,28 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
   onZoomOut: globeView,
 }) => {
   return (
-    <div className="min-h-screen">
-      <div className="absolute top-0 left-0 w-full h-[10%] p-4 flex flex-row items-center justify-between gap-2 bg-white">
-        <MenuButton
-          onClick={() => {
-            resetView();
-          }}
-        />
-        <OpenMissionButton onClick={resetView} />
-        {/* Search Bar */}
-        <div className="flex items-center w-full">
-          <SearchBar />
-        </div>
+    <>
+      <div className="w-full h-[100%] flex flex-row relative">
+        <div className="bg-yellow-200 w-full justify-between gap-2 flex absolute p-4">
+          <MenuButton
+            onClick={() => {
+              resetView();
+            }}
+          />
+          <OpenMissionButton onClick={resetView} />
+          {/* Search Bar */}
+          <div className="flex items-center w-full">
+            <SearchBar />
+          </div>
 
-        {/* Menu Button */}
-        <div className="flex justify-end h-full gap-2 items-center ">
-          <DrawButton onClick={resetView} />
-          <TerrainButton onClick={tiltView} />
+          {/* Menu Button */}
+          <div className="flex justify-end h-full gap-2 items-center ">
+            <DrawButton onClick={resetView} />
+            <TerrainButton onClick={tiltView} />
+          </div>
         </div>
       </div>
-      <div className="bg-orange-400 p-4 absolute bottom-0 h-[90%] w-full flex justify-between">
+      <div className="absolute bottom-0 flex w-full justify-between p-4">
         {/* NorthButton anchored in the bottom-risght corner */}
         <div className="">
           <YourLocation onClick={resetView} />
@@ -49,7 +51,7 @@ const MobileToolbar: FunctionComponent<ToolbarProps> = ({
           <GlobeView onClick={globeView} />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
