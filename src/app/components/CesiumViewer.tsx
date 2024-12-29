@@ -37,30 +37,30 @@ export const CesiumComponentRaw: FunctionComponent<{
 
   const { toast } = useToast();
 
-  // Disable page scrolling on touch devices
-  useEffect(() => {
-    const preventScroll = (e: TouchEvent) => {
-      e.preventDefault();
-    };
+  // // Disable page scrolling on touch devices
+  // useEffect(() => {
+  //   const preventScroll = (e: TouchEvent) => {
+  //     e.preventDefault();
+  //   };
 
-    const cesiumContainer = cesiumContainerRef.current;
+  //   const cesiumContainer = cesiumContainerRef.current;
 
-    if (cesiumContainer) {
-      cesiumContainer.addEventListener("touchstart", preventScroll, {
-        passive: false,
-      });
-      cesiumContainer.addEventListener("touchmove", preventScroll, {
-        passive: false,
-      });
-    }
+  //   if (cesiumContainer) {
+  //     cesiumContainer.addEventListener("touchstart", preventScroll, {
+  //       passive: false,
+  //     });
+  //     cesiumContainer.addEventListener("touchmove", preventScroll, {
+  //       passive: false,
+  //     });
+  //   }
 
-    return () => {
-      if (cesiumContainer) {
-        cesiumContainer.removeEventListener("touchstart", preventScroll);
-        cesiumContainer.removeEventListener("touchmove", preventScroll);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (cesiumContainer) {
+  //       cesiumContainer.removeEventListener("touchstart", preventScroll);
+  //       cesiumContainer.removeEventListener("touchmove", preventScroll);
+  //     }
+  //   };
+  // }, []);
 
   // Detect screen size
   useEffect(() => {
