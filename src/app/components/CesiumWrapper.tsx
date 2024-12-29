@@ -28,7 +28,7 @@ export const CesiumWrapper: React.FunctionComponent = () => {
   return CesiumJs ? (
     <>
       <CesiumDynamicComponent CesiumJs={CesiumJs} />
-      <Toaster />
+      {/* <Toaster /> */}
     </>
   ) : (
     <Loading />
