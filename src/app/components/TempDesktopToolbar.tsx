@@ -30,7 +30,7 @@ const TempDesktopToolbar = ({}) => {
                 alt="User Avatar"
                 width={100}
                 height={100}
-                className="rounded-full shadow-md hover:scale-110 active:scale-95"
+                className="hidden lg:block rounded-full shadow-md hover:scale-110 active:scale-95"
                 priority
               />
             </Link>
