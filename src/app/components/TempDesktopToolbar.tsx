@@ -9,8 +9,10 @@ import OpenMissionButton from "@/app/components/Toolbar/Buttons/MissionsFolder";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
 import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
+import { useViewerStore } from "@/store/viewerStore";
 
 const TempDesktopToolbar = ({}) => {
+  const { setTriggerAction, triggerGlobeView } = useViewerStore();
   return (
     <>
       <div className="font-bold text-white h-svh relative">
@@ -42,20 +44,44 @@ const TempDesktopToolbar = ({}) => {
           {/* Toolbar Buttons */}
           <div className="flex flex-row gap-4 pointer-events-auto ">
             {/* <HomeButton onClick={resetView} /> */}
-            <TerrainButton onClick={() => {}} />
-            <DrawButton onClick={() => {}} />
-            <OpenMissionButton onClick={() => {}} />
-            <MenuButton onClick={() => {}} />
+            <TerrainButton
+              onClick={() => {
+                setTriggerAction("tiltView");
+              }}
+            />
+            <DrawButton
+              onClick={() => {
+                setTriggerAction("tiltView");
+              }}
+            />
+            <OpenMissionButton
+              onClick={() => {
+                setTriggerAction("tiltView");
+              }}
+            />
+            <MenuButton
+              onClick={() => {
+                setTriggerAction("tiltView");
+              }}
+            />
           </div>
         </div>
       </div>
       {/* NorthButton anchored in the bottom-risght corner */}
       <div className="absolute bottom-4 right-4 pointer-events-auto p-8">
-        <YourLocation onClick={() => {}} />
+        <YourLocation
+          onClick={() => {
+            setTriggerAction("yourLocation");
+          }}
+        />
       </div>
       {/* NorthButton anchored in the bottom-right corner */}
       <div className="absolute bottom-4 left-4 pointer-events-auto p-8">
-        <GlobeView onClick={() => {}} />
+        <GlobeView
+          onClick={() => {
+            setTriggerAction("globeView");
+          }}
+        />
       </div>
     </>
   );

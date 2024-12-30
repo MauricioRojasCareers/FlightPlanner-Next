@@ -1,11 +1,24 @@
+// viewerStore.ts
+
 import { create } from "zustand";
 
-export const useViewerStore = create((set) => ({
-  // Existing state and actions
-  triggerAction: null,
-  setTriggerAction: (action: any) => set({ triggerAction: action }),
+// Define the store state and actions type
+type ViewerStore = {
+  triggerAction: string | null;
+  setTriggerAction: (action: string | null) => void;
+  isCesiumReady: boolean;
+  setCesiumReady: (ready: boolean) => void;
+  triggerGlobeView: () => void;
+};
 
-  // New state and actions
+export const useViewerStore = create<ViewerStore>((set) => ({
+  triggerAction: null,
+  setTriggerAction: (action) => set({ triggerAction: action }),
+
   isCesiumReady: false,
-  setCesiumReady: (ready: boolean) => set({ isCesiumReady: ready }),
+  setCesiumReady: (ready) => set({ isCesiumReady: ready }),
+
+  triggerGlobeView: () => set({ triggerAction: "globeView" }), // action to trigger globeView
+  triggerYourLocation: () => set({ triggerAction: "yourLocation" }), // action to trigger zoom to your location
+  triggerTiltView: () => set({ triggerAction: "tiltView" }), // action to trigger tiltview
 }));

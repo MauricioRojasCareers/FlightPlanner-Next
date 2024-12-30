@@ -296,6 +296,31 @@ export const CesiumViewer: FunctionComponent<{
     }
   };
 
+  // Effect to handle triggered actions
+  useEffect(() => {
+    if (triggerAction && cesiumViewer.current) {
+      const viewer = cesiumViewer.current;
+
+      if (triggerAction === "globeView") {
+        // Call globeView function when action is 'globeView'
+        globeView();
+      }
+
+      if (triggerAction === "yourLocation") {
+        // Call globeView function when action is 'globeView'
+        resetTopView();
+      }
+
+      if (triggerAction === "tiltView") {
+        // Call globeView function when action is 'globeView'
+        tiltViewToTerrain();
+      }
+
+      // Reset the action to avoid repeated execution
+      setTriggerAction(null);
+    }
+  }, [triggerAction, setTriggerAction]);
+
   const globeView = () => {
     cesiumViewer.current?.camera.flyHome();
   };
@@ -305,47 +330,8 @@ export const CesiumViewer: FunctionComponent<{
   return (
     <>
       <div ref={cesiumContainerRef} id="cesiumContainer" className="relative" />
-
-      {/* {isMobile ? (
-        <>
-          <div
-            ref={cesiumContainerRef}
-            id="cesiumContainer"
-            className="relative"
-          >
-            <MobileToolbar
-              onClick={resetTopView}
-              onTiltView={tiltViewToTerrain}
-              onZoomOut={globeView}
-            />
-          </div>
-        </>
-      ) : (
-        <>
-          <div
-            ref={cesiumContainerRef}
-            id="cesiumContainer"
-            className="relative"
-          />
-          <DesktopToolbar
-            onClick={resetTopView}
-            onAction={toggleFullScreen}
-            onTiltView={tiltViewToTerrain}
-            onZoomOut={globeView}
-          />
-        </>
-      )} */}
     </>
   );
 };
 
 export default CesiumViewer;
-
-//   <div ref={cesiumContainerRef} id="cesiumContainer" className="relative" >
-// {locationPermission === null &&
-//   (isMobile ? (
-//     <MobileFirstTimeVisitorView />
-//   ) : (
-//     <DesktopFirstTimeVisitorView />
-//   ))}
-// </div>
