@@ -10,7 +10,7 @@ import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
 import { useViewerStore } from "@/store/viewerStore";
 
 const TempMobileToolbar = ({}) => {
-  const { setTriggerAction, triggerGlobeView } = useViewerStore();
+  const { setTriggerAction } = useViewerStore();
   return (
     <>
       <div className="font-bold text-white h-svh relative">

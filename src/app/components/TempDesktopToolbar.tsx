@@ -16,34 +16,32 @@ const TempDesktopToolbar = ({}) => {
   return (
     <>
       <div className="font-bold text-white h-svh relative">
-        {/* <Top Left Navbar> */}
-        <div className="absolute top-0 w-full p-8  flex justify-around items-center">
-          <div className="flex pointer-events-auto  w-full">
-            {/* Avatar & Search Bar */}
-            <div className="flex items-center w-[50%] gap-4 ">
-              {/* Avatar */}
-              <Link
-                href="/"
-                className="w-12 h-12  rounded-full flex items-center justify-center"
-              >
-                <Image
-                  src="/assets/phoenix-logo.svg" // Path to your image in the public/assets folder
-                  alt="User Avatar"
-                  width={100} // Adjust the dimensions as needed
-                  height={100}
-                  className="rounded-full shadow-md hover:scale-110 active:scale-95"
-                  priority
-                />
-              </Link>
-              {/* Search Bar */}
-              <div className="flex items-center w-[75%] bg-orange-400">
-                <SearchBar />
-              </div>
+        {/* Top Navbar */}
+        <div className="absolute top-0 w-full p-8 flex justify-between items-center gap-4">
+          {/* Left Section - Avatar & Search Bar */}
+          <div className="flex items-center gap-4 w-full max-w-[50%] pointer-events-auto">
+            {/* Avatar */}
+            <Link
+              href="/"
+              className="w-12 h-12 rounded-full flex items-center justify-center"
+            >
+              <Image
+                src="/assets/phoenix-logo.svg"
+                alt="User Avatar"
+                width={100}
+                height={100}
+                className="rounded-full shadow-md hover:scale-110 active:scale-95"
+                priority
+              />
+            </Link>
+            {/* Search Bar */}
+            <div className="flex-grow pointer-events-auto">
+              <SearchBar />
             </div>
           </div>
-          {/* Toolbar Buttons */}
-          <div className="flex flex-row gap-4 pointer-events-auto ">
-            {/* <HomeButton onClick={resetView} /> */}
+
+          {/* Right Section - Toolbar Buttons */}
+          <div className="flex gap-4 pointer-events-auto">
             <TerrainButton
               onClick={() => {
                 setTriggerAction("tiltView");
@@ -66,22 +64,25 @@ const TempDesktopToolbar = ({}) => {
             />
           </div>
         </div>
-      </div>
-      {/* NorthButton anchored in the bottom-risght corner */}
-      <div className="absolute bottom-4 right-4 pointer-events-auto p-8">
-        <YourLocation
-          onClick={() => {
-            setTriggerAction("yourLocation");
-          }}
-        />
-      </div>
-      {/* NorthButton anchored in the bottom-right corner */}
-      <div className="absolute bottom-4 left-4 pointer-events-auto p-8">
-        <GlobeView
-          onClick={() => {
-            setTriggerAction("globeView");
-          }}
-        />
+
+        {/* Bottom Buttons */}
+        {/* Bottom-right corner */}
+        <div className="absolute bottom-4 right-4 pointer-events-auto p-8">
+          <YourLocation
+            onClick={() => {
+              setTriggerAction("yourLocation");
+            }}
+          />
+        </div>
+
+        {/* Bottom-left corner */}
+        <div className="absolute bottom-4 left-4 pointer-events-auto p-8">
+          <GlobeView
+            onClick={() => {
+              setTriggerAction("globeView");
+            }}
+          />
+        </div>
       </div>
     </>
   );
