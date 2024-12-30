@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import DesktopToolbar from "./components/Toolbar/DesktopToolbar/DesktopToolbar";
-import TempDesktopToolbar from "./components/TempDesktopToolbar";
+
+import TempToolbar from "./components/TempToolbar";
 
 export const metadata: Metadata = {
   title: "FlightPlanner Next-Generation",
@@ -34,11 +34,8 @@ export default function RootLayout({
           <AppSidebar />
           <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
             <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
-              {/* <div className="bg-rose-300 pointer-events-auto">
-                <p>Hello World</p>
-              </div> */}
               {/* <SidebarTrigger variant="secondary" /> */}
-              <TempDesktopToolbar></TempDesktopToolbar>
+              <TempToolbar />
             </header>
             {children}
           </main>

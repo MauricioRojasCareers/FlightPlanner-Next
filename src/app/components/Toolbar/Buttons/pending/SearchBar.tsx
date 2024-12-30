@@ -8,7 +8,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = () => {
     <input
       type="text"
       placeholder="Search..."
-      className="w-full h-10 md:h-10 px-4 border border-gray-300 rounded-md text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-rose-500 shadow-lg"
+      className="w-full h-10 md:h-10 px-4 border border-gray-300 rounded-md text-black font-light placeholder:text-black placeholder:font-light focus:outline-none focus:ring-2 focus:ring-rose-500 shadow-lg"
     />
   );
 };

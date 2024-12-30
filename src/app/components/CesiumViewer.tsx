@@ -5,11 +5,6 @@ import type { CesiumType } from "../types/cesium";
 import type { UserPosition } from "../types/position";
 import { Viewer, sampleTerrainMostDetailed } from "cesium";
 
-import DesktopFirstTimeVisitorView from "./_FirstTimeVisitor/DesktopView/page";
-import MobileFirstTimeVisitorView from "./_FirstTimeVisitor/MobileView//page";
-import MobileToolbar from "./Toolbar/MobileToolbar/MobileToolbar";
-import DesktopToolbar from "./Toolbar/DesktopToolbar/DesktopToolbar";
-
 // Import Hooks
 import { useToast } from "@/app/hooks/use-toast";
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
@@ -17,7 +12,7 @@ import useFullScreen from "../hooks/useFullScreen";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useViewerStore } from "@/store/viewerStore";
 
-export const CesiumComponentRaw: FunctionComponent<{
+export const CesiumViewer: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
   const cesiumViewer = useRef<Viewer | null>(null);
@@ -25,7 +20,6 @@ export const CesiumComponentRaw: FunctionComponent<{
   const customCreditContainerRef = useRef<HTMLDivElement>(
     document.createElement("div")
   );
-
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const [userPosition, setUserPosition] = useState<UserPosition | null>(null);
@@ -41,6 +35,8 @@ export const CesiumComponentRaw: FunctionComponent<{
   const setTriggerAction = useViewerStore(
     (state: any) => state.setTriggerAction
   );
+
+  const setCesiumReady = useViewerStore((state: any) => state.setCesiumReady);
 
   useEffect(() => {
     if (triggerAction && cesiumViewer.current) {
@@ -158,6 +154,7 @@ export const CesiumComponentRaw: FunctionComponent<{
         animation: false,
         selectionIndicator: false,
       });
+      setCesiumReady(true);
 
       // Check when terrain has loaded
       cesiumViewer.current.scene.globe.tileLoadProgressEvent.addEventListener(
@@ -231,6 +228,7 @@ export const CesiumComponentRaw: FunctionComponent<{
 
       return () => {
         cesiumViewer.current?.destroy(); // Cleanup when component unmounts
+        setCesiumReady(false);
       };
     }
   }, [userPosition, CesiumJs, locationError]);
@@ -341,7 +339,7 @@ export const CesiumComponentRaw: FunctionComponent<{
   );
 };
 
-export default CesiumComponentRaw;
+export default CesiumViewer;
 
 //   <div ref={cesiumContainerRef} id="cesiumContainer" className="relative" >
 // {locationPermission === null &&
