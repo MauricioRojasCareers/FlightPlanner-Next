@@ -50,7 +50,7 @@ const TempMobileToolbar = ({}) => {
           </div>
         </div>
         {/* NorthButton anchored in the bottom-risght corner */}
-        <div className="absolute bottom-4 right-4 pointer-events-auto bg-blue-200">
+        <div className="absolute bottom-4 right-4 pointer-events-auto">
           <YourLocation
             onClick={() => {
               setTriggerAction("yourLocation");
