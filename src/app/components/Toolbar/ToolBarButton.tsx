@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { motion } from "framer-motion";
 import { FunctionComponent } from "react";
 

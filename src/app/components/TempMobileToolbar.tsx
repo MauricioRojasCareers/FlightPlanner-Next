@@ -1,12 +1,11 @@
 "use client";
 
-import SearchBar from "./Toolbar/Buttons/pending/SearchBar";
 import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
 import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
-import OpenMissionButton from "@/app/components/Toolbar/Buttons/MissionsFolder";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
-import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
+import DrawerTriggerButton from "./Toolbar/Buttons/DrawerTriggerButton";
+
 import { useViewerStore } from "@/store/viewerStore";
 
 const TempMobileToolbar = ({}) => {
@@ -20,7 +19,7 @@ const TempMobileToolbar = ({}) => {
             {/* Avatar & Search Bar */}
             <div className="flex items-center w-full gap-2 ">
               {/* Avatar */}
-              <MenuButton
+              {/* <MenuButton
                 onClick={() => {
                   setTriggerAction("tiltView");
                 }}
@@ -29,17 +28,19 @@ const TempMobileToolbar = ({}) => {
                 onClick={() => {
                   setTriggerAction("tiltView");
                 }}
-              />
+              /> */}
               {/* Search Bar */}
-              <div className="flex items-center w-full">
+              {/* <div className="flex items-center w-full">
                 <SearchBar />
-              </div>
-              <div className="flex justify-end h-full gap-2 items-center">
+              </div> */}
+              <div className="flex justify-between h-full w-full gap-2 items-center">
                 <DrawButton
                   onClick={() => {
                     setTriggerAction("tiltView");
                   }}
                 />
+                <DrawerTriggerButton onClick={() => {}} />
+
                 <TerrainButton
                   onClick={() => {
                     setTriggerAction("tiltView");
