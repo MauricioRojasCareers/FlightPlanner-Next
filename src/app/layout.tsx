@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
 import TempToolbar from "./components/TempToolbar";
@@ -35,13 +31,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SidebarProvider defaultOpen={false}>
-          <AppSidebar variant="inset" />
+          <AppSidebar />
           <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
             <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
-              {/* <SidebarTrigger variant="secondary" /> */}
-              <SidebarInset>
-                <TempToolbar />
-              </SidebarInset>
+              <TempToolbar />
             </header>
             {children}
           </main>
