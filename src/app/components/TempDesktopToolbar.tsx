@@ -53,7 +53,7 @@ const TempDesktopToolbar = ({}) => {
     <>
       <div className="font-bold text-white h-svh relative">
         {/* Top Navbar */}
-        <div className="absolute top-0 w-full p-8 flex justify-between items-center gap-4">
+        <div className="absolute top-0 w-full flex justify-between items-center gap-8 p-8">
           {/* Left Section - Avatar & Search Bar */}
           <div className="flex items-center gap-4 w-full max-w-[50%] pointer-events-auto">
             {open ? <> </> : <></>}
@@ -111,7 +111,7 @@ const TempDesktopToolbar = ({}) => {
 
         {/* Bottom Buttons */}
         {/* Bottom-right corner */}
-        <div className="absolute bottom-4 right-4 pointer-events-auto p-8">
+        <div className="absolute bottom-0 right-0 pointer-events-auto p-8">
           <YourLocation
             onClick={() => {
               setTriggerAction("yourLocation");
@@ -120,7 +120,7 @@ const TempDesktopToolbar = ({}) => {
         </div>
 
         {/* Bottom-left corner */}
-        <div className="absolute bottom-4 left-4 pointer-events-auto p-8">
+        <div className="absolute bottom-0 left-0 pointer-events-auto p-8">
           <GlobeView
             onClick={() => {
               setTriggerAction("globeView");

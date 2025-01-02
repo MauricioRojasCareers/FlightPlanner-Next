@@ -49,22 +49,22 @@ const TempMobileToolbar = ({}) => {
             </div>
           </div>
         </div>
-      </div>
-      {/* NorthButton anchored in the bottom-risght corner */}
-      <div className="absolute bottom-4 right-4 pointer-events-auto">
-        <YourLocation
-          onClick={() => {
-            setTriggerAction("yourLocation");
-          }}
-        />
-      </div>
-      {/* NorthButton anchored in the bottom-right corner */}
-      <div className="absolute bottom-4 left-4 pointer-events-auto">
-        <GlobeView
-          onClick={() => {
-            setTriggerAction("globeView");
-          }}
-        />
+        {/* NorthButton anchored in the bottom-risght corner */}
+        <div className="absolute bottom-4 right-4 pointer-events-auto bg-blue-200">
+          <YourLocation
+            onClick={() => {
+              setTriggerAction("yourLocation");
+            }}
+          />
+        </div>
+        {/* NorthButton anchored in the bottom-right corner */}
+        <div className="absolute bottom-4 left-4 pointer-events-auto">
+          <GlobeView
+            onClick={() => {
+              setTriggerAction("globeView");
+            }}
+          />
+        </div>
       </div>
     </>
   );
