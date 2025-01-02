@@ -8,11 +8,47 @@ import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
 import OpenMissionButton from "@/app/components/Toolbar/Buttons/MissionsFolder";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
-import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
+import SettingsButton from "@/app/components/Toolbar/Buttons/Settings";
 import { useViewerStore } from "@/store/viewerStore";
+import { Maximize } from "lucide-react";
+import FullScreen from "./Toolbar/Buttons/OnlyDesktop/FullScreen";
+import ExitFullScreen from "./Toolbar/Buttons/OnlyDesktop/ExitFullScreen";
+import { useSidebar } from "@/components/ui/sidebar";
+import { useState } from "react";
+import OpenSideBar from "./Toolbar/Buttons/OpenSideBar";
 
 const TempDesktopToolbar = ({}) => {
+  const {
+    state,
+    open,
+    setOpen,
+    openMobile,
+    setOpenMobile,
+    isMobile,
+    toggleSidebar,
+  } = useSidebar();
   const { setTriggerAction, triggerGlobeView } = useViewerStore();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const handleFullScreenToggle = () => {
+    if (!isFullscreen) {
+      // Enter full screen
+      document.documentElement
+        .requestFullscreen()
+        .catch((err) =>
+          console.error(`Failed to enter full-screen mode: ${err.message}`)
+        );
+    } else {
+      // Exit full screen
+      document
+        .exitFullscreen()
+        .catch((err) =>
+          console.error(`Failed to exit full-screen mode: ${err.message}`)
+        );
+    }
+    setIsFullscreen(!isFullscreen);
+  };
+
   return (
     <>
       <div className="font-bold text-white h-svh relative">
@@ -20,8 +56,11 @@ const TempDesktopToolbar = ({}) => {
         <div className="absolute top-0 w-full p-8 flex justify-between items-center gap-4">
           {/* Left Section - Avatar & Search Bar */}
           <div className="flex items-center gap-4 w-full max-w-[50%] pointer-events-auto">
+            {open ? <> </> : <></>}
+
+            <OpenSideBar onClick={toggleSidebar} />
             {/* Avatar */}
-            <Link
+            {/* <Link
               href="/"
               className="w-12 h-12 rounded-full flex items-center justify-center"
             >
@@ -33,11 +72,11 @@ const TempDesktopToolbar = ({}) => {
                 className="hidden lg:block rounded-full shadow-md hover:scale-110 active:scale-95"
                 priority
               />
-            </Link>
+            </Link> */}
             {/* Search Bar */}
-            <div className="flex-grow pointer-events-auto">
+            {/* <div className="flex-grow pointer-events-auto">
               <SearchBar />
-            </div>
+            </div> */}
           </div>
 
           {/* Right Section - Toolbar Buttons */}
@@ -52,16 +91,21 @@ const TempDesktopToolbar = ({}) => {
                 setTriggerAction("tiltView");
               }}
             />
-            <OpenMissionButton
+            {/* <OpenMissionButton
               onClick={() => {
                 setTriggerAction("tiltView");
               }}
-            />
-            <MenuButton
+            /> */}
+            {/* <MenuButton
               onClick={() => {
                 setTriggerAction("tiltView");
               }}
-            />
+            /> */}
+            {isFullscreen ? (
+              <ExitFullScreen onClick={handleFullScreenToggle} />
+            ) : (
+              <FullScreen onClick={handleFullScreenToggle} />
+            )}
           </div>
         </div>
 

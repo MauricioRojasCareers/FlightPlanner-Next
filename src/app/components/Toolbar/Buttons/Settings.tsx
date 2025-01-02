@@ -4,7 +4,9 @@ import { ButtonType } from "@/app/types/toolbar";
 import ToolBarButton from "../ToolBarButton";
 import { Settings } from "lucide-react";
 
-const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
+const SettingsButton: FunctionComponent<ButtonType> = ({
+  onClick: resetView,
+}) => {
   return (
     <ToolBarButton
       onClick={resetView}
@@ -22,4 +24,4 @@ const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
   );
 };
 
-export default HomeButton;
+export default SettingsButton;
