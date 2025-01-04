@@ -41,7 +41,8 @@ export const CesiumViewer: FunctionComponent<{
     setCesiumReady,
   });
   // const { toggleFullScreen } = useFullScreen();
-  const { resetTopView, tiltViewToTerrain, globeView } = useCesiumActions({
+
+  useCesiumActions({
     cesiumViewer,
     userPosition,
     CesiumJs,

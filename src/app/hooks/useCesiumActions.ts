@@ -75,6 +75,30 @@ export const useCesiumActions = ({
     cesiumViewer.current?.camera.flyHome();
   }, [cesiumViewer]);
 
+  const startDrawing = useCallback(() => {
+    const scene = cesiumViewer.current?.scene;
+    const handler = new CesiumJs.ScreenSpaceEventHandler(scene?.canvas);
+
+    console.log("Drawing mode started");
+
+    handler.setInputAction((click: any) => {
+      const cartesian = cesiumViewer.current?.scene.camera.pickEllipsoid(
+        click.position,
+        cesiumViewer.current.scene.globe.ellipsoid
+      );
+
+      if (cartesian) {
+        const cartographic = CesiumJs.Cartographic.fromCartesian(cartesian);
+        const longitude = CesiumJs.Math.toDegrees(cartographic.longitude);
+        const latitude = CesiumJs.Math.toDegrees(cartographic.latitude);
+        console.log(`Point added at [${longitude}, ${latitude}]`);
+        // Add point to viewer, entities, or your app state
+      }
+    }, CesiumJs.ScreenSpaceEventType.LEFT_CLICK);
+
+    setTriggerAction(null); // Clear the action
+  }, [cesiumViewer, CesiumJs, setTriggerAction]);
+
   // Effect to handle triggered actions
   useEffect(() => {
     if (triggerAction && cesiumViewer.current) {
@@ -88,6 +112,10 @@ export const useCesiumActions = ({
         case "tiltView":
           tiltViewToTerrain();
           break;
+        case "startDrawing":
+          startDrawing();
+          break;
+
         default:
           break;
       }
@@ -103,11 +131,13 @@ export const useCesiumActions = ({
     globeView,
     resetTopView,
     tiltViewToTerrain,
+    startDrawing,
   ]);
 
   return {
     resetTopView,
     tiltViewToTerrain,
     globeView,
+    startDrawing,
   };
 };

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./Toolbar/Buttons/pending/SearchBar";
 import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
-import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
+// import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
 import OpenMissionButton from "@/app/components/Toolbar/Buttons/MissionsFolder";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
@@ -16,18 +16,11 @@ import ExitFullScreen from "./Toolbar/Buttons/OnlyDesktop/ExitFullScreen";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useState } from "react";
 import OpenSideBar from "./Toolbar/Buttons/OpenSideBar";
+import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
 
 const TempDesktopToolbar = ({}) => {
-  const {
-    state,
-    open,
-    setOpen,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar();
-  const { setTriggerAction, triggerGlobeView } = useViewerStore();
+  const { open, toggleSidebar } = useSidebar();
+  const { setTriggerAction } = useViewerStore();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const handleFullScreenToggle = () => {
@@ -86,11 +79,7 @@ const TempDesktopToolbar = ({}) => {
                 setTriggerAction("tiltView");
               }}
             />
-            <DrawButton
-              onClick={() => {
-                setTriggerAction("tiltView");
-              }}
-            />
+            <DrawButton onClick={() => {}} />
             {/* <OpenMissionButton
               onClick={() => {
                 setTriggerAction("tiltView");

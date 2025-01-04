@@ -1,7 +1,7 @@
 "use client";
 
 import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
-import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
+// import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
 import DrawerTriggerButton from "./Toolbar/Buttons/DrawerTriggerButton";
@@ -34,11 +34,11 @@ const TempMobileToolbar = ({}) => {
                 <SearchBar />
               </div> */}
               <div className="flex justify-between h-full w-full gap-2 items-center">
-                <DrawButton
+                {/* <DrawButton
                   onClick={() => {
                     setTriggerAction("tiltView");
                   }}
-                />
+                /> */}
                 <DrawerTriggerButton onClick={() => {}} />
 
                 <TerrainButton

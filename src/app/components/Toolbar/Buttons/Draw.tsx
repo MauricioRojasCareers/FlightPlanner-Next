@@ -3,11 +3,17 @@ import { FunctionComponent } from "react";
 import { ButtonType } from "@/app/types/toolbar";
 import ToolBarButton from "../ToolBarButton";
 import { Route } from "lucide-react";
+import { useViewerStore } from "@/store/viewerStore";
 
-const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
+const HomeButton: FunctionComponent<ButtonType> = ({
+  onClick: startDrawing,
+}) => {
+  const { setTriggerAction } = useViewerStore();
   return (
     <ToolBarButton
-      onClick={resetView}
+      onClick={() => {
+        setTriggerAction("startDrawing");
+      }}
       icon={
         <Route
           className="
