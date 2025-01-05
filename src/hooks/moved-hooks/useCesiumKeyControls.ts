@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { Viewer, Cartesian3, Math as CesiumMath } from "cesium";
-import type { CesiumType } from "../types/cesium";
+import type { CesiumType } from "@/types/cesium";
 
 interface UseCesiumKeyControlsProps {
   cesiumViewer: React.RefObject<Viewer | null>;

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import type { ScreenSpaceEventHandler, Cartesian3, Viewer } from "cesium";
-import { CesiumType } from "@/app/types/cesium";
+import { CesiumType } from "@/types/cesium";
 
 // Custom hook for terrain sampling
 export const useTerrainSampling = (

@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useCallback, useState, useRef } from "react";
 import type { Viewer, Cartesian3 } from "cesium";
-import { CesiumType } from "../types/cesium"; // Adjust import if necessary
+import { CesiumType } from "@/types/cesium"; // Adjust import if necessary
 
-import { UserPosition } from "../types/position";
+import { UserPosition } from "@/types/position";
 import { startDrawing } from "@/utils/startDrawing";
 import { useStartDrawing } from "@/hooks/useStartDrawing";
 

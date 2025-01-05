@@ -1,5 +1,5 @@
 import type { Viewer } from "cesium";
-import { CesiumType } from "@/app/types/cesium"; // Adjust path as needed
+import { CesiumType } from "@/types/cesium"; // Adjust path as needed
 
 /* ---------------------- Helper Functions ----------------------- */
 
