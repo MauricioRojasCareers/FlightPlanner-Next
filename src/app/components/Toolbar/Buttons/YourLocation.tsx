@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-import { ButtonType } from "@/app/types/toolbar";
+import { ButtonType } from "@/types/toolbar";
 import { Navigation } from "lucide-react";
 import ToolBarButton from "../ToolBarButton";
 import { useViewerStore } from "@/store/viewerStore";

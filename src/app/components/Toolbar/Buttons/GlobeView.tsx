@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { ButtonType } from "@/app/types/toolbar";
+import { ButtonType } from "@/types/toolbar";
 import ToolBarButton from "../ToolBarButton";
 import { Globe } from "lucide-react";
 
