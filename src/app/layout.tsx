@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
-import TempToolbar from "./components/TempToolbar";
+import TempToolbar from "./components/Toolbar/HandleDifferentToolbars";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -32,15 +31,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <SidebarProvider defaultOpen={false}>
-            <AppSidebar />
-            <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
-              <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
-                <TempToolbar />
-              </header>
-              {children}
-            </main>
-          </SidebarProvider>
+          <AppSidebar />
+          <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
+            <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
+              <TempToolbar />
+            </header>
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

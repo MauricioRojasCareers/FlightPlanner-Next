@@ -1,14 +1,14 @@
 "use client";
 
-import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
+import TerrainButton from "@/app/components/Toolbar/Buttons/TiltView";
 // import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
 import GlobeView from "@/app/components/Toolbar/Buttons/GlobeView";
-import DrawerTriggerButton from "./Toolbar/Buttons/DrawerTriggerButton";
+import DrawerTriggerButton from "../Buttons/DrawerTriggerButton";
 
 import { useViewerStore } from "@/store/viewerStore";
 
-const TempMobileToolbar = ({}) => {
+const MobileToolbar = ({}) => {
   const { setTriggerAction } = useViewerStore();
   return (
     <>
@@ -71,4 +71,4 @@ const TempMobileToolbar = ({}) => {
   );
 };
 
-export default TempMobileToolbar;
+export default MobileToolbar;

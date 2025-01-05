@@ -2,9 +2,9 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
 import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
-import DrawButton from "@/app/components/Toolbar/Buttons/Draw";
+import DrawButton from "@/app/components/Toolbar/Buttons/DrawButton";
 import YourLocation from "@/app/components/Toolbar/Buttons/YourLocation";
-import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
+import TerrainButton from "@/app/components/Toolbar/Buttons/TiltView";
 import Image from "next/image";
 import FullScreen from "../Buttons/OnlyDesktop/FullScreen";
 import SearchBar from "../Buttons/pending/SearchBar";

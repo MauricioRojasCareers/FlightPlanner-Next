@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FunctionComponent } from "react";
 
 interface ToolbarButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   icon: JSX.Element; // Pass the icon as a JSX element for reusability
   iconText?: string; // Optional text in button
 

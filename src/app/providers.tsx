@@ -7,6 +7,8 @@ import {
 } from "@tanstack/react-query";
 import * as React from "react";
 
+import { SidebarProvider } from "@/components/ui/sidebar";
+
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
@@ -33,7 +35,7 @@ export function Providers(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {props.children}
+      <SidebarProvider defaultOpen={false}>{props.children}</SidebarProvider>
     </QueryClientProvider>
   );
 }

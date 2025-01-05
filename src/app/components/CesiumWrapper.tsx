@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import type { CesiumType } from "@/types/cesium";
-import Loading from "@/app/components/Loading";
+import LoadingSpinner from "@/app/components/Loading";
 import { Toaster } from "../../components/ui/toaster";
 
 const CesiumDynamicComponent = dynamic(
@@ -31,7 +31,7 @@ export const CesiumWrapper: React.FunctionComponent = () => {
       <Toaster />
     </>
   ) : (
-    <Loading />
+    <LoadingSpinner />
   );
 };
 

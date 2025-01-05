@@ -1,6 +1,6 @@
 "use client";
 
-import { FunctionComponent, useEffect, useRef } from "react";
+import { FunctionComponent, useRef } from "react";
 import type { CesiumType } from "@/types/cesium";
 
 // Import Hooks
@@ -14,10 +14,6 @@ export const CesiumViewer: FunctionComponent<{
   CesiumJs: CesiumType;
 }> = ({ CesiumJs }) => {
   /* --------------START Zustand Store  -------------- */
-  const triggerAction = useViewerStore((state: any) => state.triggerAction);
-  const setTriggerAction = useViewerStore(
-    (state: any) => state.setTriggerAction
-  );
   const setCesiumReady = useViewerStore((state: any) => state.setCesiumReady);
   /* -------------- END Zustand Store-------------- */
 
@@ -44,8 +40,6 @@ export const CesiumViewer: FunctionComponent<{
     cesiumViewer,
     userPosition,
     CesiumJs,
-    triggerAction,
-    setTriggerAction,
   });
 
   useCesiumKeyControls({

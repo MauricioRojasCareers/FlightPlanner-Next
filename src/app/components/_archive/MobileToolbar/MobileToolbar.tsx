@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import MenuButton from "@/app/components/Toolbar/Buttons/Settings";
-import TerrainButton from "@/app/components/Toolbar/Buttons/Terrain";
+import TerrainButton from "@/app/components/Toolbar/Buttons/TiltView";
 
 import OpenMissionButton from "../Buttons/MissionsFolder";
 import DrawButton from "../Buttons/Draw";

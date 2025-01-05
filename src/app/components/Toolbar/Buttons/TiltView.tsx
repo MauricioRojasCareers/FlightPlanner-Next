@@ -4,7 +4,7 @@ import { ButtonType } from "@/types/toolbar";
 import ToolBarButton from "../ToolBarButton";
 import { Mountain } from "lucide-react";
 
-const HomeButton: FunctionComponent<ButtonType> = ({ onClick: tiltView }) => {
+const TiltView: FunctionComponent<ButtonType> = ({ onClick: tiltView }) => {
   return (
     <ToolBarButton
       onClick={tiltView}
@@ -23,4 +23,4 @@ const HomeButton: FunctionComponent<ButtonType> = ({ onClick: tiltView }) => {
   );
 };
 
-export default HomeButton;
+export default TiltView;
