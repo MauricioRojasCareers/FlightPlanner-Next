@@ -8,10 +8,10 @@ import { useCesiumViewerStore, useViewerStore } from "@/store/viewerStore";
 
 /* Buttons */
 import OpenSideBarButton from "../Buttons/OpenSideBar";
-import TiltViewButton from "@/app/components/Toolbar/Buttons/TiltView";
-import GlobeViewButton from "@/app/components/Toolbar/Buttons/GlobeView";
-import YourLocationButton from "@/app/components/Toolbar/Buttons/YourLocation";
-import DrawButton from "@/app/components/Toolbar/Buttons/DrawButton";
+import TiltViewButton from "../Buttons/TiltView";
+import GlobeViewButton from "../Buttons/GlobeView";
+import YourLocationButton from "../Buttons/YourLocation";
+import DrawButton from "../Buttons/DrawButton";
 import FullScreenButton from "../Buttons/OnlyDesktop/FullScreen";
 import ExitFullScreenButton from "../Buttons/OnlyDesktop/ExitFullScreen";
 import ExitDrawingButton from "../Buttons/ExitDrawing";
