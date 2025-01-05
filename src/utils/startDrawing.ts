@@ -1,5 +1,5 @@
 import type { Viewer, ScreenSpaceEventHandler, Cartesian3 } from "cesium";
-import { CesiumType } from "@/app/types/cesium";
+import { CesiumType } from "@/types/cesium";
 
 export const startDrawing = ({
   cesiumViewer,
