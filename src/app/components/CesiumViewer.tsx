@@ -4,11 +4,11 @@ import { FunctionComponent, useEffect, useRef } from "react";
 import type { CesiumType } from "../types/cesium";
 
 // Import Hooks
-import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
+import { useCesiumKeyControls } from "../../hooks/moved-hooks/useCesiumKeyControls";
 import { useViewerStore } from "@/store/viewerStore";
-import { useGeolocation } from "../hooks/useGeolocation";
-import { useCesiumActions } from "../hooks/useCesiumActions";
-import { useCesiumViewer } from "../hooks/useCesiumViewer";
+import { useGeolocation } from "../../hooks/moved-hooks/useGeolocation";
+import { useCesiumActions } from "../../hooks/moved-hooks/useCesiumActions";
+import { useCesiumViewer } from "../../hooks/moved-hooks/useCesiumViewer";
 
 export const CesiumViewer: FunctionComponent<{
   CesiumJs: CesiumType;
