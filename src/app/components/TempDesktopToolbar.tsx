@@ -101,11 +101,7 @@ const TempDesktopToolbar = ({}) => {
         {/* Bottom Buttons */}
         {/* Bottom-right corner */}
         <div className="absolute bottom-0 right-0 pointer-events-auto p-8">
-          <YourLocation
-            onClick={() => {
-              setTriggerAction("yourLocation");
-            }}
-          />
+          <YourLocation onClick={() => {}} />
         </div>
 
         {/* Bottom-left corner */}

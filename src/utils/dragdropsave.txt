@@ -1,0 +1,44 @@
+/*  Handle dragging on MOUSE_MOVE */
+handler.setInputAction(
+  (movement: ScreenSpaceEventHandler.PositionedEvent) => {
+    if (draggingBillboard && draggingBillboard.position) {
+      /*  Get the new position*/
+      const cartesian = scene.pickPosition(movement.position); 
+      if (cartesian) {
+        /*  Wrap Cartesian3 in ConstantPositionProperty*/
+        draggingBillboard.position = new CesiumJs.ConstantPositionProperty(
+          cartesian
+        );
+
+        /*  Update the corresponding point in the points array*/
+        const index = draggingBillboard.properties?.getProperty("index");
+
+        /*  Ensure the index is a number before updating the points array */
+        if (typeof index === "number") {
+          setPoints((prevPoints) => {
+            const updatedPoints = [...prevPoints];
+            updatedPoints[index] = cartesian;
+            return updatedPoints;
+          });
+        } else {
+          console.error("Invalid or missing index in billboard properties.");
+        }
+      }
+    }
+  },
+  CesiumJs.ScreenSpaceEventType.MOUSE_MOVE
+);
+
+/* Stop dragging on LEFT_UP */
+handler.setInputAction(() => {
+  draggingBillboard = null;
+}, CesiumJs.ScreenSpaceEventType.LEFT_UP);
+
+
+/* Left Click and drag   */
+/* handler.setInputAction((click: ScreenSpaceEventHandler.PositionedEvent) => {
+  const pickedObject = scene.pick(click.position);
+  if (pickedObject && pickedObject.id && pickedObject.id.billboard) {
+    draggingBillboard = pickedObject.id as Entity;
+  }
+}, CesiumJs.ScreenSpaceEventType.LEFT_DOWN); */

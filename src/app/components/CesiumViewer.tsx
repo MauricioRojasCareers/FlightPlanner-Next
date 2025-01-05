@@ -1,14 +1,12 @@
 "use client";
 
 import { FunctionComponent, useEffect, useRef } from "react";
-import { Viewer, sampleTerrainMostDetailed } from "cesium";
 import type { CesiumType } from "../types/cesium";
 
 // Import Hooks
 import { useCesiumKeyControls } from "../hooks/useCesiumKeyControls";
 import { useViewerStore } from "@/store/viewerStore";
 import { useGeolocation } from "../hooks/useGeolocation";
-import { useDisableScroll } from "../hooks/useDisableScroll";
 import { useCesiumActions } from "../hooks/useCesiumActions";
 import { useCesiumViewer } from "../hooks/useCesiumViewer";
 

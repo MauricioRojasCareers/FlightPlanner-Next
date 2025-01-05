@@ -3,11 +3,17 @@ import { FunctionComponent } from "react";
 import { ButtonType } from "@/app/types/toolbar";
 import { Navigation } from "lucide-react";
 import ToolBarButton from "../ToolBarButton";
+import { useViewerStore } from "@/store/viewerStore";
 
-const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
+const YourLocation: FunctionComponent<ButtonType> = ({
+  onClick: resetView,
+}) => {
+  const { setTriggerAction } = useViewerStore();
   return (
     <ToolBarButton
-      onClick={resetView}
+      onClick={() => {
+        setTriggerAction("yourLocation");
+      }}
       icon={
         <Navigation
           className="
@@ -24,4 +30,4 @@ const HomeButton: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
   );
 };
 
-export default HomeButton;
+export default YourLocation;
