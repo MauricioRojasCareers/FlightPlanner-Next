@@ -1,7 +1,7 @@
 "use client";
 
 import { FunctionComponent, useEffect, useRef } from "react";
-import type { CesiumType } from "../types/cesium";
+import type { CesiumType } from "@/types/cesium";
 
 // Import Hooks
 import { useCesiumKeyControls } from "../../hooks/moved-hooks/useCesiumKeyControls";
