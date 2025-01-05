@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import type { Viewer, Cartesian3, ScreenSpaceEventHandler } from "cesium";
-import { CesiumType } from "@/app/types/cesium";
+import { CesiumType } from "@/types/cesium";
 
 export const useStartDrawing = ({
   cesiumViewer,
