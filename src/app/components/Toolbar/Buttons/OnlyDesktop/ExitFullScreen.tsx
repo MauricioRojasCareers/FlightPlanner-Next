@@ -13,7 +13,7 @@ const exitFullscreen: FunctionComponent<ButtonType> = ({
       icon={<X className="text-rose-800 group-hover:scale-125" />}
       iconText="Exit full Screen"
       buttonSize="sm"
-      buttonClassName="group"
+      buttonClassName="group h-full"
     />
   );
 };

@@ -34,15 +34,16 @@ export default function DesktopToolbar() {
     <>
       <div className="font-bold text-white h-svh relative">
         {/* Top ToolBar Buttons */}
-        <div className="absolute top-0 w-full flex justify-between  gap-8 p-8 ">
+        <div className="absolute top-0 w-full flex justify-between p-8 ">
           {/* Sidebar Toggle Button */}
-          <div className="flex gap-4 w-full max-w-[50%] pointer-events-auto ">
+          <div className="flex gap-4 w-full pointer-events-auto ">
             <OpenSideBarButton onClick={toggleSidebar} />
+            {isDrawing && <DrawingInProgress />}
           </div>
 
           {/* Top-Right Toobar Buttons*/}
           <div className="flex pointer-events-auto ">
-            <div className="flex flex-col gap-4 text-center justify-center">
+            <div className="flex  gap-4 text-center items-center">
               <div className="flex gap-4 justify-center">
                 <TiltViewButton
                   onClick={() => {
@@ -57,12 +58,21 @@ export default function DesktopToolbar() {
                 )}
 
                 {!isDrawing ? (
-                  <DrawButton onClick={toggleDrawingMode} />
+                  <DrawButton
+                    onClick={() => {
+                      toggleDrawingMode();
+                      toggleSidebar(); // Toggles the sidebar when starting drawing
+                    }}
+                  />
                 ) : (
-                  <ExitDrawingButton onClick={toggleDrawingMode} />
+                  <ExitDrawingButton
+                    onClick={() => {
+                      toggleDrawingMode();
+                      toggleSidebar(); // Toggles the sidebar when exiting drawing
+                    }}
+                  />
                 )}
               </div>
-              {isDrawing && <DrawingInProgress />}
             </div>
           </div>
         </div>

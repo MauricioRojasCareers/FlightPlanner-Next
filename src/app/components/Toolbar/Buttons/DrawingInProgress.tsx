@@ -6,19 +6,13 @@ function DrawingInProgress() {
     <>
       {/* Ripple Effect and Dark Glass Background */}
       <div
-        className="relative flex items-center justify-start w-full bg-black/30 
-                    backdrop-blur-lg p-4 rounded-xl border border-white/10 shadow-2xl overflow-hidden"
+        className="relative flex items-center justify-start h-full
+                    backdrop-blur-lg p-2 rounded-xl border shadow-2xl overflow-hidden"
       >
-        {/* Ripple Animation */}
-        <div
-          className="absolute inset-0 w-full h-full rounded-xl 
-                        bg-rose-600/20 animate-ripple opacity-30 pointer-events-none animate-pulse"
-        ></div>
-
         {/* Main Button with Dark Glass Styling */}
         <div
           className="relative z-10 text-white flex items-center w-full justify-between
-                      text-sm transition-all duration-500 ease-in-out gap-2"
+                      text-sm transition-all duration-500 ease-in-out gap-2 h-full px-2"
         >
           <p className="tracking-wide text-xs font-bold animate-pulse">
             Drawing in Progress
