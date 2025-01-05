@@ -4,7 +4,9 @@ import { ButtonType } from "@//types/toolbar";
 import ToolBarButton from "../../ToolBarButton";
 import { Maximize } from "lucide-react";
 
-const FullScreen: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
+const FullScreenButton: FunctionComponent<ButtonType> = ({
+  onClick: resetView,
+}) => {
   return (
     <ToolBarButton
       onClick={resetView}
@@ -16,4 +18,4 @@ const FullScreen: FunctionComponent<ButtonType> = ({ onClick: resetView }) => {
   );
 };
 
-export default FullScreen;
+export default FullScreenButton;

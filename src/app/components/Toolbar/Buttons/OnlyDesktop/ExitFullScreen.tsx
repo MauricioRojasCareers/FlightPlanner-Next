@@ -4,7 +4,7 @@ import { ButtonType } from "@/types/toolbar";
 import ToolBarButton from "../../ToolBarButton";
 import { X } from "lucide-react";
 
-const exitFullscreen: FunctionComponent<ButtonType> = ({
+const ExitFullscreenButton: FunctionComponent<ButtonType> = ({
   onClick: handleMaximizeClick,
 }) => {
   return (
@@ -18,4 +18,4 @@ const exitFullscreen: FunctionComponent<ButtonType> = ({
   );
 };
 
-export default exitFullscreen;
+export default ExitFullscreenButton;
