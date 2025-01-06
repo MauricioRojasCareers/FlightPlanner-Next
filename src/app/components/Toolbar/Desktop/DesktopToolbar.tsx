@@ -12,8 +12,8 @@ import TiltViewButton from "../Buttons/TiltView";
 import GlobeViewButton from "../Buttons/GlobeView";
 import YourLocationButton from "../Buttons/YourLocation";
 import DrawButton from "../Buttons/DrawButton";
-import FullScreenButton from "../Buttons/OnlyDesktop/FullScreen";
-import ExitFullScreenButton from "../Buttons/OnlyDesktop/ExitFullScreen";
+import FullScreenButton from "@/app/components/Toolbar/Buttons/OnlyDesktop/FullScreen";
+import ExitFullScreenButton from "@/app/components/Toolbar/Buttons/OnlyDesktop/ExitFullScreen";
 import ExitDrawingButton from "../Buttons/ExitDrawing";
 import DrawingInProgress from "../Buttons/DrawingInProgress";
 
