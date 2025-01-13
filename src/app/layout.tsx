@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
 
-import TempToolbar from "./components/Toolbar/HandleDifferentToolbars";
-import { Providers } from "./providers";
+import HandleDifferentToolbars from "./components/Toolbar/HandleDifferentToolbars";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "FlightPlanner Next-Generation",
@@ -27,18 +29,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <SidebarProvider defaultOpen={defaultOpen}>
           <AppSidebar />
           <main className="w-full h-svh md:h-svh lg:h-[100vh] relative">
             <header className="absolute top-0 left-0 w-full z-10 h-svh pointer-events-none">
-              <TempToolbar />
+              <HandleDifferentToolbars />
             </header>
             {children}
           </main>
-        </Providers>
+        </SidebarProvider>
       </body>
     </html>
   );

@@ -2,29 +2,39 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
+  Camera,
   Frame,
-  GalleryVerticalEnd,
+  Home,
   Map,
   PieChart,
+  Plus,
+  Projector,
+  Ruler,
   Settings2,
-  SquareTerminal,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import LidarSwitcher from "@/components/lidar-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupAction,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
+  SidebarMenuAction,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
+  SidebarSeparator,
+  useSidebar,
 } from "@/components/ui/sidebar";
+import CameraSwitcher from "./camera-switcher";
+import TempSidebarHeader from "./temp-sidebar-header";
 
 // This is sample data.
 const data = {
@@ -33,105 +43,122 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
+  lidars: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      name: "Ranger",
+      logo: Projector,
+      plan: "Ranger",
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
+      name: "MiniRanger",
+      logo: Projector,
+      plan: "MiniRanger",
     },
     {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      name: "Recon",
+      logo: Projector,
+      plan: "Recon",
+    },
+  ],
+
+  cameras: [
+    {
+      name: "Sony A6KLite",
+      logo: Camera,
+      plan: "Sony A6KLite",
+    },
+    {
+      name: "Sony A7R4",
+      logo: Camera,
+      plan: "Sony A7R4",
+    },
+    {
+      name: "Sony LR1",
+      logo: Camera,
+      plan: "Sony LR1",
+    },
+    {
+      name: "Riebo R6",
+      logo: Camera,
+      plan: "Riebo R6",
     },
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Measurements",
       url: "#",
-      icon: SquareTerminal,
+      icon: Ruler,
       isActive: true,
       items: [
         {
-          title: "History",
+          title: "35 Feet",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "35 Feet",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
+          url: "#",
+        },
+        {
+          title: "35 Feet",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
+      title: "Mission Parameters",
       url: "#",
       icon: Settings2,
       items: [
         {
-          title: "General",
+          title: "Aircraft's Flight Time",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Altitude",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Curve Size",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Flight Direction",
+          url: "#",
+        },
+        {
+          title: "Lateral Overlap",
+          url: "#",
+        },
+        {
+          title: "Forward Overlap",
           url: "#",
         },
       ],
@@ -160,11 +187,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <LidarSwitcher teams={data.lidars} />
+        {/* <TempSidebarHeader teams={data.lidars}></TempSidebarHeader> */}
+
+        <CameraSwitcher teams={data.cameras} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Viewer, Cartesian3, Math as CesiumMath } from "cesium";
+import type { Viewer } from "cesium";
 import type { CesiumType } from "@/types/cesium";
 
 interface UseCesiumKeyControlsProps {
@@ -51,7 +51,13 @@ export const useCesiumKeyControls = ({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [cesiumViewer, userLongitude, userLatitude]);
+  }, [
+    cesiumViewer,
+    userLongitude,
+    userLatitude,
+    CesiumJs.Math,
+    CesiumJs.Cartesian3,
+  ]);
 };
 
 //   if (event?.key === "e" || event?.key === "E") {

@@ -4,8 +4,8 @@ import { useViewerStore } from "@/store/viewerStore";
 
 import { useSidebar } from "@/components/ui/sidebar";
 
-import DesktopToolbar from "./Desktop/DesktopToolbar";
-import MobileToolbar from "./Mobile/MobileToolbar";
+import DesktopToolbar from "@/app/components/Toolbar/_Desktop/DesktopToolbar";
+import MobileToolbar from "@/app/components/Toolbar/_Mobile/MobileToolbar";
 
 export default function HandleDifferentToolbars() {
   const { isMobile } = useSidebar();

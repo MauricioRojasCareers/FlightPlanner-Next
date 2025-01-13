@@ -16,6 +16,7 @@ import FullScreenButton from "@/app/components/Toolbar/Buttons/OnlyDesktop/FullS
 import ExitFullScreenButton from "@/app/components/Toolbar/Buttons/OnlyDesktop/ExitFullScreen";
 import ExitDrawingButton from "../Buttons/ExitDrawing";
 import DrawingInProgress from "../Buttons/DrawingInProgress";
+import MeasurementButton from "../Buttons/MeasurementButton";
 
 export default function DesktopToolbar() {
   /* --------------START Zustand Store  -------------- */
@@ -27,8 +28,7 @@ export default function DesktopToolbar() {
   const { setTriggerAction } = useViewerStore();
   /* --------------END Zustand Store  -------------- */
 
-  /* For Sidebar Toggle Button: */
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, state } = useSidebar();
 
   return (
     <>
@@ -37,7 +37,8 @@ export default function DesktopToolbar() {
         <div className="absolute top-0 w-full flex justify-between p-8 ">
           {/* Sidebar Toggle Button */}
           <div className="flex gap-4 w-full pointer-events-auto ">
-            <OpenSideBarButton onClick={toggleSidebar} />
+            <OpenSideBarButton onClick={() => {}} />
+            <MeasurementButton onClick={() => {}}></MeasurementButton>
             {isDrawing && <DrawingInProgress />}
           </div>
 
@@ -61,14 +62,15 @@ export default function DesktopToolbar() {
                   <DrawButton
                     onClick={() => {
                       toggleDrawingMode();
-                      toggleSidebar(); // Toggles the sidebar when starting drawing
+                      if (state === "collapsed") {
+                        toggleSidebar();
+                      }
                     }}
                   />
                 ) : (
                   <ExitDrawingButton
                     onClick={() => {
                       toggleDrawingMode();
-                      toggleSidebar(); // Toggles the sidebar when exiting drawing
                     }}
                   />
                 )}
