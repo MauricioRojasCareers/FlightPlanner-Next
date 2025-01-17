@@ -3,9 +3,11 @@
 import * as React from "react";
 import {
   Camera,
+  CopyMinus,
   Frame,
   Home,
   Map,
+  Pencil,
   PieChart,
   Plus,
   Projector,
@@ -35,6 +37,7 @@ import {
 } from "@/components/ui/sidebar";
 import CameraSwitcher from "./camera-switcher";
 import TempSidebarHeader from "./temp-sidebar-header";
+import MissionParameters from "./mission-parameters";
 
 // This is sample data.
 const data = {
@@ -184,16 +187,34 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { open } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
+        {open && (
+          <>
+            <SidebarGroupLabel className="justify-between gap-4">
+              <p className="truncate text-base">
+                Mission #1 - Hoes Ranch New jersey Mission #1 - Hoes Ranch New
+                jersey Mission #1 - Hoes Ranch New jersey Mission #1 - Hoes
+                Ranch New jersey Mission #1 - Hoes Ranch New jersey Mission #1 -
+                Hoes Ranch New jersey Mission #1 - Hoes Ranch New jersey Mission
+                #1 - Hoes Ranch New jersey Mission #1 - Hoes Ranch New jersey
+              </p>
+              <button>
+                <Pencil size={15}></Pencil>
+              </button>
+            </SidebarGroupLabel>
+            <SidebarSeparator />
+          </>
+        )}
         <LidarSwitcher teams={data.lidars} />
-        {/* <TempSidebarHeader teams={data.lidars}></TempSidebarHeader> */}
-
         <CameraSwitcher teams={data.cameras} />
       </SidebarHeader>
+      <SidebarSeparator />
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <MissionParameters></MissionParameters>
+        {/* <NavMain items={data.navMain} /> */}
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>

@@ -59,34 +59,6 @@ export function NavMain({
 
   return (
     <SidebarGroup className="">
-      {/* {open && (
-        <>
-          <div className="flex justify-between items-center w-full">
-            <SidebarGroupLabel className="flex items-center gap-4 w-[90%] h-full">
-              <p
-                className={`${
-                  isExpanded
-                    ? ""
-                    : "text-ellipsis overflow-hidden whitespace-nowrap truncate"
-                }  p-2  max-w-full overflow-hidden text-ellipsis select-none`}
-              >
-                Mission #1 - Hoes Ranch New jersey
-              </p>
-              <button>
-                <Pencil
-                  size={15}
-                  onClick={() => setIsExpanded((prev) => !prev)}
-                />
-              </button>
-            </SidebarGroupLabel>
-
-            <button className="w-[10%] flex justify-center items-center">
-              <CopyMinus size={15} />
-            </button>
-          </div>
-        </>
-      )} */}
-
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -120,9 +92,7 @@ export function NavMain({
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
                         <a href={subItem.url}>
-                          <span className="text-xs font-extralight">
-                            {subItem.title}
-                          </span>
+                          <span className="text-xs">{subItem.title}</span>
                         </a>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>

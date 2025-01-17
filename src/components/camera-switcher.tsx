@@ -28,7 +28,7 @@ export default function CameraSwitcher({
     plan: string;
   }[];
 }) {
-  const { isMobile, state, toggleSidebar } = useSidebar();
+  const { state, toggleSidebar } = useSidebar();
   const [activeTeam, setActiveTeam] = useState(teams[0]);
   return (
     <SidebarMenu>
@@ -53,7 +53,10 @@ export default function CameraSwitcher({
                 <span className="truncate font-semibold ">
                   {activeTeam.name}
                 </span>
-                <span className="truncate text-xs">{activeTeam.plan}</span>
+                <span className="truncate text-xs">
+                  {/* {activeTeam.plan} */}
+                  Camera
+                </span>
               </div>
               <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
