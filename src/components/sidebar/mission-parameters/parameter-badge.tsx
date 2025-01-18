@@ -1,5 +1,5 @@
 import { Minus, Plus } from "lucide-react";
-import { SidebarMenuBadge } from "./ui/sidebar";
+import { SidebarMenuBadge } from "../../ui/sidebar";
 
 export function ParameterBadge() {
   return (

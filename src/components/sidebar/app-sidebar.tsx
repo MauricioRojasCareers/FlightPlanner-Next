@@ -15,10 +15,10 @@ import {
   Settings2,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
-import LidarSwitcher from "@/components/lidar-switcher";
+import { NavMain } from "@/components/sidebar/nav-main";
+import { NavProjects } from "@/components/sidebar/nav-projects";
+import { NavUser } from "@/components/sidebar/nav-user";
+import LidarSwitcher from "@/components/sidebar/lidar-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -37,7 +37,8 @@ import {
 } from "@/components/ui/sidebar";
 import CameraSwitcher from "./camera-switcher";
 import TempSidebarHeader from "./temp-sidebar-header";
-import MissionParameters from "./mission-parameters";
+import MissionParameters from "@/components/sidebar/mission-parameters/mission-parameters";
+import { SearchForm } from "./search-form";
 
 // This is sample data.
 const data = {
@@ -191,7 +192,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        {open && (
+        <SearchForm />
+        <SidebarSeparator />
+
+        {/* {open && (
           <>
             <SidebarGroupLabel className="justify-between gap-4">
               <p className="truncate text-base">
@@ -207,13 +211,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupLabel>
             <SidebarSeparator />
           </>
-        )}
+        )} */}
         <LidarSwitcher teams={data.lidars} />
         <CameraSwitcher teams={data.cameras} />
       </SidebarHeader>
       <SidebarSeparator />
       <SidebarContent>
-        <MissionParameters></MissionParameters>
+        <MissionParameters />
         {/* <NavMain items={data.navMain} /> */}
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>

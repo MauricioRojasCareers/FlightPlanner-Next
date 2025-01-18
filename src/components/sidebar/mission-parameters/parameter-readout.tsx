@@ -1,11 +1,14 @@
-import { SidebarMenuSubButton, SidebarSeparator } from "../sidebar";
-import { Label } from "../label";
-import { Input } from "../input";
-import { Button } from "../button";
+import {
+  SidebarMenuSubButton,
+  SidebarSeparator,
+} from "@/components/ui/sidebar";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export type ParameterReadtoutProps = {
   parameterName: string;
-  defaultValue?: string | number; // Default value for the input
+  defaultValue?: string;
 };
 
 export function ParameterReadout({
@@ -20,17 +23,21 @@ export function ParameterReadout({
           <Label htmlFor="email" className="text-xs truncate">
             {parameterName}
           </Label>
-          <div className="w-full flex items-center gap-2">
-            <Button variant="ghost" size="icon">
+          <div className="w-full flex justify-around gap-2  ">
+            <Button variant="default" size="sm">
               -
             </Button>
 
             <Input
-              className="flex-grow h-9 text-center font-extralight focus:font-normal "
+              className="w-[100%] text-center select-none default:select-none "
               defaultValue={defaultValue}
+              onFocus={(e) => (e.target.value = "")} // Clears text when clicked
+              onBlur={(e) => {
+                if (!e.target.value) e.target.value = defaultValue; // Restore default text if empty
+              }}
             />
 
-            <Button variant="ghost" size="icon">
+            <Button variant="default" size="sm">
               +
             </Button>
           </div>

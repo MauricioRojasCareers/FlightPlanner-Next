@@ -29,7 +29,7 @@ import {
 
 import { useSidebarStore } from "@/store/sideBarStore";
 import { useState } from "react";
-import { ParameterBadge } from "./parameter-badge";
+import { ParameterBadge } from "./mission-parameters/parameter-badge";
 
 export function NavMain({
   items,

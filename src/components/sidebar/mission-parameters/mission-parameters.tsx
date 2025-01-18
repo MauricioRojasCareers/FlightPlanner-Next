@@ -9,11 +9,11 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   useSidebar,
-} from "./ui/sidebar";
+} from "../../ui/sidebar";
 import { ChevronRight, Settings2 } from "lucide-react";
-import { CollapsibleContent } from "./ui/collapsible";
+import { CollapsibleContent } from "../../ui/collapsible";
 
-import { ParameterReadout } from "./ui/mission-parameters/parameter-readout";
+import { ParameterReadout } from "@/components/sidebar/mission-parameters/parameter-readout";
 
 export default function MissionParameters() {
   const { toggleSidebar, state } = useSidebar();

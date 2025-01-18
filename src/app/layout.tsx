@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
 
 import HandleDifferentToolbars from "./components/Toolbar/HandleDifferentToolbars";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
